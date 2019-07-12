@@ -1,2 +1,14 @@
 *.pyc
 __pycache__
+Movie/*.pyc
+Movie/__pycache__
+Manager/*.pyc
+Manager/__pycache__
+Manager/Categories/*.pyc
+Manager/Categories/__pycache__
+Manager/ContentProvider/*.pyc
+Manager/ContentProvider/__pycache__
+Manager/Movies/*.pyc
+Manager/Movies/__pycache__
+Editor/*.pyc
+Editor/__pycache__
