@@ -2,15 +2,17 @@ from tkinter import Tk
 from Editor.TkinterEditor import Editor
 from Manager.Movies.MoviesManager import MoviesManager
 from Manager.Categories.CategoriesManager import CategoriesManager
-from Manager.Categories.CategoriesMemoryContentProvider import CategoriesMemoryContentProvider
-from Manager.Movies.MoviesMemoryContentProvider import MoviesMemoryContentProvider
+from Manager.Categories.CategoriesMemoryContentProvider import CategoriesContentProvider
+from Manager.Movies.MoviesMemoryContentProvider import MoviesContentProvider
+from Manager.ContentProvider.ContentProviderFactory import ContentProviderFactory
 
 if __name__ == '__main__':
     root = Tk()
     editor = Editor(root)
 
-    categories_manager = CategoriesManager(CategoriesMemoryContentProvider())
-    movies_manager = MoviesManager(MoviesMemoryContentProvider())
+    content_provider = ContentProviderFactory.create("memory")
+    categories_manager = CategoriesManager(content_provider)
+    movies_manager = MoviesManager(content_provider)
 
     categories_manager.load()
     movies_manager.load()

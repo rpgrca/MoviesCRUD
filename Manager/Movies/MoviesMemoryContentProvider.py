@@ -2,9 +2,9 @@ from Manager.Movies.MoviesManager import MoviesManager
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.Movie import Movie
 
-class MoviesMemoryContentProvider(ContentProvider):
+class MoviesContentProvider(ContentProvider):
     def __init__(self):
-        super(MoviesMemoryContentProvider, self).__init__()
+        super(MoviesContentProvider, self).__init__()
 
     def load(self):
         self.set_items([ Movie(1, "The Terminator", "American science fiction film", '1984-10-26', "James Cameron", "Accion"),
