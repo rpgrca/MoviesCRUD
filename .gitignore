@@ -12,3 +12,4 @@ Manager/Movies/*.pyc
 Manager/Movies/__pycache__
 Editor/*.pyc
 Editor/__pycache__
+.vscode
