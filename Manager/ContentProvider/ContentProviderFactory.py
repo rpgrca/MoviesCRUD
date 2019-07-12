@@ -4,7 +4,7 @@ from Manager.ContentProvider.ShelveContentProvider import ShelveContentProvider
 from Manager.ContentProvider.EmptyContentProvider import EmptyContentProvider
 
 class ContentProviderFactory:
-    def create(self, content_provider_type):
+    def create(self, content_provider_type: str) -> ContentProvider:
         if content_provider_type == "memory":
             return ContentProvider()
 

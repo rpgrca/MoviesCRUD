@@ -1,17 +1,20 @@
 from tkinter import *
 from tkinter import ttk, messagebox
+from Manager.Movies.MoviesManager import MoviesManager
+from Manager.Categories.CategoriesManager import CategoriesManager
+from Movie.Movie import Movie
 
 class Editor(object):
-    def set_movies_manager(self, movies_manager):
+    def set_movies_manager(self, movies_manager: MoviesManager):
         self.__movies_manager = movies_manager
         self.clear_editor()
         self.__reload_movies()
 
-    def set_categories_manager(self, categories_manager):
+    def set_categories_manager(self, categories_manager: CategoriesManager):
         self.__categories_manager = categories_manager
         self.__load_categories()
 
-    def __get_selected_movie(self):
+    def __get_selected_movie(self) -> Movie:
         if self.movies_listbox.curselection():
             index = int(self.movies_listbox.curselection()[0])
             value = self.movies_listbox.get(index)
@@ -44,7 +47,7 @@ class Editor(object):
             self.__enable_save_button()
             self.__disable_delete_button()
 
-    def __verify_text(self, label, textbox):
+    def __verify_text(self, label: Label, textbox: Entry):
         can_save = False
 
         if textbox.get():
@@ -98,12 +101,12 @@ class Editor(object):
     def __disable_save_button(self):
         self.save_button["state"] = "disabled"
 
-    def __set_labels_color(self, color):
+    def __set_labels_color(self, color: str):
         controls = [self.title_label, self.description_label, self.releasedate_label, self.director_label, self.category_label]
         for control in controls:
             control["fg"] = color
 
-    def __set_textbox_state(self, state):
+    def __set_textbox_state(self, state: str):
         controls = [self.title_text, self.description_text, self.releasedate_text, self.director_text]
         for control in controls:
             control["state"] = state
@@ -127,16 +130,13 @@ class Editor(object):
         self.categories_combo["state"] = "disabled"
         self.__set_labels_color("black")
 
-    def edit_movie(self, movie):
+    def edit_movie(self, movie: Movie):
         self.__identifier.set(movie.identifier)
         self.__title.set(movie.title)
         self.__description.set(movie.description)
         self.__releasedate.set(movie.releasedate)
         self.__director.set(movie.director)
         self.__category.set(movie.category)
-        #index = self.__categories_manager.get_category_index(movie.category)
-        #if index > 0:
-        #    self.categories_combo.current(index)
 
     def __reload_categories(self):
         if self.__categories_manager:
@@ -160,7 +160,7 @@ class Editor(object):
 
             self.categories_combo['values'] = categories
 
-    def __init__(self, parent=None, **configs):
+    def __init__(self, parent = None, **configs):
         self.__movies_manager = None
         self.__categories_manager = None
 

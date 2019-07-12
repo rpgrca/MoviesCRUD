@@ -1,3 +1,4 @@
+from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class EmptyContentProvider(ContentProvider):
@@ -7,5 +8,5 @@ class EmptyContentProvider(ContentProvider):
     def load(self):
         pass
 
-    def save(self, items):
+    def save(self, items: List[Any]):
         pass
