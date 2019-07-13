@@ -1,3 +1,5 @@
+"""MemoryContentProvider.py"""
+
 from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.Movie import Movie
@@ -12,6 +14,10 @@ class MemoryContentProvider(ContentProvider):
                           Movie(3, "A Nightmare on Elm Street", "Mystery/Slasher", '1984-11-09', "Wes Craven", "Suspenso"),
                           Movie(4, "Friday the 13th", "Slasher film", '1980-05-09', "Sean S. Cunningham", "Terror"),
                           Movie(5, "Back to the Future", "Fantasy/Sci-fi", '1985-12-26', "Robert Zemeckis", "Comedia") ]
+
+    def get_name(self) -> str:
+        """Retorna el nombre del Content Provider"""
+        return "Memoria Volatil"
 
     def load(self):
         """Carga las peliculas y categorias por defecto"""

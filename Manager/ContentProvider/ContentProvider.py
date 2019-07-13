@@ -7,6 +7,10 @@ class ContentProvider(object):
         self.__movies = []
         self.__categories = []
 
+    def get_name(self):
+        """Retorna el nombre del Content Provider"""
+        pass
+
     def load(self):
         """Carga los valores desde el origen a las listas internas"""
         pass
