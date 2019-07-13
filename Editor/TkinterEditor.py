@@ -172,6 +172,14 @@ class Editor(object):
         self.__main_window = Frame(self.parent_window)
         self.__main_window.pack(expand=YES, fill=BOTH)
 
+        self.__menu = Menu(self.parent_window)
+        menu_ajustes = Menu(self.__menu, tearoff=0)
+        menu_ajustes.add_command(label="Ajustes")
+        menu_ajustes.add_separator()
+        menu_ajustes.add_command(label="Salir", command=self.__on_exit_button_pressed) #self.parent_window.quit)
+        self.__menu.add_cascade(label="Sistema", menu=menu_ajustes)
+        self.parent_window.config(menu=self.__menu)
+
         # __list_frame contiene a la lista de peliculas
         self.__list_frame = Frame(self.__main_window, height=300, width=250, borderwidth=7)
         self.__list_frame.pack(side=LEFT, expand=YES, fill=BOTH)

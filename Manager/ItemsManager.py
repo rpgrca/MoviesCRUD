@@ -9,6 +9,7 @@ class ItemsManager(object):
         self.__items = []
 
     def load(self):
+        """Carga la lista de items desde el Content Provider"""
         pass
 
     def get_items(self):
@@ -21,7 +22,9 @@ class ItemsManager(object):
         self.__items = items
 
     def get_content_provider(self):
+        """Retorna el Content Provider interno"""
         return self.__content_provider
 
     def dump(self):
+        """Inserta los elementos de la lista del Manager dentro del Content Provider"""
         self.__items = []
