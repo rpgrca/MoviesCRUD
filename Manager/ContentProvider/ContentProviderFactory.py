@@ -1,5 +1,6 @@
 from typing import Any, List
 from Manager.ContentProvider.ContentProvider import ContentProvider
+from Manager.ContentProvider.MemoryContentProvider import MemoryContentProvider
 from Manager.ContentProvider.FileContentProvider import FileContentProvider
 from Manager.ContentProvider.ShelveContentProvider import ShelveContentProvider
 from Manager.ContentProvider.EmptyContentProvider import EmptyContentProvider
@@ -20,11 +21,9 @@ class ContentProviderFactory:
         #else:
             ContentProviderFactory.__instance = self
 
-    def create(self, content_provider_type: str, extra_data: Any) -> ContentProvider:
+    def create(self, content_provider_type: str, extra_data: Any = None) -> ContentProvider:
         if content_provider_type == "memory":
-            content_provider = ContentProvider()
-            content_provider.set_items(extra_data)
-            return content_provider
+            return MemoryContentProvider()
 
         elif content_provider_type == "file":
             return FileContentProvider(extra_data)
