@@ -4,7 +4,6 @@ from typing import List, Any
 from Manager.ItemsManager import ItemsManager
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
-### tpd
 class CategoriesManager(ItemsManager):
     def __init__(self, content_provider: ContentProvider):
         """Constructor"""
