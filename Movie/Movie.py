@@ -12,7 +12,12 @@ class Movie(object):
         self.category = category
 
     def fromDictionary(self, dictionary: dict):
+        """Carga los valores del diccionario dado en la estructura interna"""
         self.__dict__ = dictionary
+
+    def toDictionary(self) -> dict:
+        """Retorna el diccionario interno para serializar como JSON"""
+        return self.__dict__
 
     def __str__(self):
         """String"""
