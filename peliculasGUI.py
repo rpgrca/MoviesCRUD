@@ -9,8 +9,8 @@ if __name__ == '__main__':
     root = Tk()
     editor = Editor(root)
 
-    categories_manager = CategoriesManager(ContentProviderFactory.create("memory", [ "Accion", "Comedia", "Suspenso", "Terror" ]))
-    movies_manager = MoviesManager(ContentProviderFactory.create("memory", [ Movie(1, "The Terminator", "American science fiction film", '1984-10-26', "James Cameron", "Accion"),
+    categories_manager = CategoriesManager(ContentProviderFactory().create("memory", [ "Accion", "Comedia", "Suspenso", "Terror" ]))
+    movies_manager = MoviesManager(ContentProviderFactory().create("memory", [ Movie(1, "The Terminator", "American science fiction film", '1984-10-26', "James Cameron", "Accion"),
                          Movie(2, "RoboCop", "Crime/Sci-fi", '1987-09-17', "Paul Verhoeven", "Accion"),
                          Movie(3, "A Nightmare on Elm Street", "Mystery/Slasher", '1984-11-09', "Wes Craven", "Suspenso"),
                          Movie(4, "Friday the 13th", "Slasher film", '1980-05-09', "Sean S. Cunningham", "Terror"),

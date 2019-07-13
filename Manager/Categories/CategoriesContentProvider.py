@@ -1,8 +1,8 @@
 #from Manager.ContentProvider.ContentProvider import ContentProvider
 #
-#class CategoriesContentProvider(ContentProvider):
+#class CategoriesMemoryContentProvider(ContentProvider):
 #    def __init__(self):
-#        super(CategoriesContentProvider, self).__init__()
+#        super(CategoriesMemoryContentProvider, self).__init__()
 #
 #    def load(self):
 #        self.set_items(["Accion", "Comedia", "Suspenso", "Terror"])

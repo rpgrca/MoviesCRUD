@@ -5,7 +5,7 @@ class ContentProvider(object):
         self.__items = []
 
     def load(self):
-        self.__items = []
+        pass
 
     def get_items(self) -> List[Any]:
         return self.__items
