@@ -1,7 +1,8 @@
 """Movie.py"""
+import json
 
 class Movie(object):
-    def __init__(self, identifier: int, title: str, description: str, releasedate: str, director: str, category: str):
+    def __init__(self, identifier: int = -1, title: str = "", description: str = "", releasedate: str = "", director: str = "", category: str = ""):
         """Constructor"""
         self.identifier = identifier
         self.title = title
@@ -9,6 +10,9 @@ class Movie(object):
         self.releasedate = releasedate
         self.director = director
         self.category = category
+
+    def fromDictionary(self, dictionary: dict):
+        self.__dict__ = dictionary
 
     def __str__(self):
         """String"""
