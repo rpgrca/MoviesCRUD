@@ -1,25 +1,27 @@
+"""ItemsManager.py"""
 from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class ItemsManager(object):
     def __init__(self, content_provider: ContentProvider):
+        """Constructor"""
         self.__content_provider = content_provider
         self.__items = []
-        self.__initialized = False
 
     def load(self):
-        if not self.__initialized and self.__content_provider:
-            self.__content_provider.load()
-            self.set_items(self.__content_provider.get_items())
-            self.__initialized = True
+        pass
 
     def get_items(self):
+        """Retorna los items cargados en el Manager"""
+        # TODO: Tal vez deberia llamar a self.load()
         return self.__items
 
     def set_items(self, items: List[Any]):
+        """Reemplaza los items del Manager con una nueva lista de elementos"""
         self.__items = items
 
-    def save(self):
-        if self.__content_provider:
-            self.__content_provider.save(self.__items)
+    def get_content_provider(self):
+        return self.__content_provider
 
+    def dump(self):
+        self.__items = []
