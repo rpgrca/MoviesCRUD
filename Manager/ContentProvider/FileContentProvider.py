@@ -10,6 +10,6 @@ class FileContentProvider(ContentProvider):
         # TODO: Cargar items del archivo
         pass
 
-    def save(self, items: List[Any]):
+    def save(self):
         # TODO: Grabar items del archivo
         pass

@@ -8,5 +8,5 @@ class EmptyContentProvider(ContentProvider):
     def load(self):
         pass
 
-    def save(self, items: List[Any]):
+    def save(self):
         pass
