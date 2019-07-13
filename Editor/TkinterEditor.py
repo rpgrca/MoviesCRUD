@@ -151,8 +151,6 @@ class Editor(object):
 
             for movie in movies:
                 self.movies_listbox.insert(END, row_format.format(movie.identifier, movie.title, sp=" "*2))
-        else:
-            print("No")
 
     def __load_categories(self):
         if self.__categories_manager:
