@@ -20,7 +20,7 @@ class CategoriesManager(ItemsManager):
         if self.get_content_provider():
             self.get_content_provider().set_categories(self.get_items())
 
-    def get_categories(self) -> List[Any]:
+    def get_categories(self) -> List[str]:
         """Retorna la lista actual de categorias del Manager"""
         return super(CategoriesManager, self).get_items()
 
