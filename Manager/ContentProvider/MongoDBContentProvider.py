@@ -8,6 +8,12 @@ class MongoDBContentProvider(ContentProvider):
         super(MongoDBContentProvider, self).__init__()
         self.__connection_string = connection_string
         self.name = "Base MongoDB"
+        self.key = MongoDBContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "mongodb"
 
     def load(self):
         # TODO: Cargar items de la base de datos

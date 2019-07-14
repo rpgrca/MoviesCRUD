@@ -15,6 +15,12 @@ class MemoryContentProvider(ContentProvider):
                           Movie(4, "Friday the 13th", "Slasher film", '1980-05-09', "Sean S. Cunningham", "Terror"),
                           Movie(5, "Back to the Future", "Fantasy/Sci-fi", '1985-12-26', "Robert Zemeckis", "Comedia") ]
         self.name = "Memoria Volatil"
+        self.key = MemoryContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "memory"
 
     def load(self):
         """Carga las peliculas y categorias por defecto"""

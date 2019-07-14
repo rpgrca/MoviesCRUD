@@ -8,3 +8,9 @@ class EmptyContentProvider(ContentProvider):
         super(EmptyContentProvider, self).__init__()
         self.name = "Vacio (sin valores)"
         self.initialized = True
+        self.key = EmptyContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "empty"

@@ -9,6 +9,12 @@ class ZODBContentProvider(ContentProvider):
         super(ZODBContentProvider, self).__init__()
         self.__connection_string = connection_string
         self.name = "Base ZODB"
+        self.key = ZODBContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "zodb"
 
     def load(self):
         # TODO: Cargar items de la base de datos

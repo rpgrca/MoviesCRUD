@@ -12,6 +12,12 @@ class ShelveContentProvider(ContentProvider):
         self.__shelf = None
         self.initialized = False
         self.name = "Base Shelve"
+        self.key = ShelveContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "shelve"
 
     def __get_config(self, key: str) -> List[Any]:
         """Retorna la lista grabada en una determinada llave"""

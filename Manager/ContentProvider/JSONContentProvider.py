@@ -13,6 +13,12 @@ class JSONContentProvider(ContentProvider):
         super(JSONContentProvider, self).__init__()
         self.__filename = filename
         self.name = "Archivo JSON"
+        self.key = JSONContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "json"
 
     def load(self):
         """Carga las listas de peliculas y categorias desde un archivo JSON"""

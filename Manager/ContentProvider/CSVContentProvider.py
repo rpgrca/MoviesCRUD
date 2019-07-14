@@ -25,6 +25,12 @@ class CSVContentProvider(ContentProvider):
         super(CSVContentProvider, self).__init__()
         self.__filename = filename
         self.name = "Archivo CSV"
+        self.key = CSVContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "csv"
 
     def load(self):
         # TODO: Cargar items del archivo

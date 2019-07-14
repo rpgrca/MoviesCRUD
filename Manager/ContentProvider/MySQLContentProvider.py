@@ -9,6 +9,12 @@ class MySQLContentProvider(ContentProvider):
         super(MySQLContentProvider, self).__init__()
         self.__connection_string = connection_string
         self.name = "Base MySQL"
+        self.key = MySQLContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "mysql"
 
     def load(self):
         # TODO: Cargar items de la base de datos

@@ -8,6 +8,12 @@ class FileContentProvider(ContentProvider):
         super(FileContentProvider, self).__init__()
         self.__filename = filename
         self.name = "Archivo de texto"
+        self.key = FileContentProvider.KEY()
+
+    @staticmethod
+    def KEY() -> str:
+        """Retorna la llave de este content provider"""
+        return "file"
 
     def load(self):
         # TODO: Cargar items del archivo
