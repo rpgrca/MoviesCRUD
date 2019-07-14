@@ -8,6 +8,7 @@ from Manager.ContentProvider.JSONContentProvider import JSONContentProvider
 from Manager.ContentProvider.MySQLContentProvider import MySQLContentProvider
 from Manager.ContentProvider.ZODBContentProvider import ZODBContentProvider
 from Manager.ContentProvider.MongoDBContentProvider import MongoDBContentProvider
+from Manager.ContentProvider.CSVContentProvider import CSVContentProvider
 
 class ContentProviderFactory:
     @staticmethod
