@@ -8,10 +8,7 @@ class ZODBContentProvider(ContentProvider):
         """Constructor"""
         super(ZODBContentProvider, self).__init__()
         self.__connection_string = connection_string
-
-    def get_name(self) -> str:
-        """Retorna el nombre del Content Provider"""
-        return "Base ZODB"
+        self.name = "Base ZODB"
 
     def load(self):
         # TODO: Cargar items de la base de datos

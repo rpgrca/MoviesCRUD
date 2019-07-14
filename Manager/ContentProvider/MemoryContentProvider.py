@@ -14,12 +14,9 @@ class MemoryContentProvider(ContentProvider):
                           Movie(3, "A Nightmare on Elm Street", "Mystery/Slasher", '1984-11-09', "Wes Craven", "Suspenso"),
                           Movie(4, "Friday the 13th", "Slasher film", '1980-05-09', "Sean S. Cunningham", "Terror"),
                           Movie(5, "Back to the Future", "Fantasy/Sci-fi", '1985-12-26', "Robert Zemeckis", "Comedia") ]
-
-    def get_name(self) -> str:
-        """Retorna el nombre del Content Provider"""
-        return "Memoria Volatil"
+        self.name = "Memoria Volatil"
 
     def load(self):
         """Carga las peliculas y categorias por defecto"""
-        self.set_movies(self.__movies)
-        self.set_categories(self.__categories)
+        self.movies = self.__movies
+        self.categories = self.__categories

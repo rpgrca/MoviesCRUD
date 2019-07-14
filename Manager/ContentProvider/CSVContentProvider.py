@@ -24,9 +24,7 @@ class CSVContentProvider(ContentProvider):
     def __init__(self, filename: str):
         super(CSVContentProvider, self).__init__()
         self.__filename = filename
-
-    def get_name(self) -> str:
-        return "Archivo CSV"
+        self.name = "Archivo CSV"
 
     def load(self):
         # TODO: Cargar items del archivo

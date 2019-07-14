@@ -8,10 +8,7 @@ class MySQLContentProvider(ContentProvider):
         """Constructor"""
         super(MySQLContentProvider, self).__init__()
         self.__connection_string = connection_string
-
-    def get_name(self) -> str:
-        """Retorna el nombre del Content Provider"""
-        return "Base MySQL"
+        self.name = "Base MySQL"
 
     def load(self):
         # TODO: Cargar items de la base de datos

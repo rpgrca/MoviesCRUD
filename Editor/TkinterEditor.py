@@ -14,22 +14,7 @@ class TkinterEditor(object):
         self.clear_editor()
         self.__reload_movies()
         self.__load_categories()
-
-#    def set_movies_manager(self, movies_manager: MoviesManager):
-#        """Recibe el Manager de peliculas a usar"""
-#        self.__general_manager.movies_manager = movies_manager
-#        self.clear_editor()
-#        self.__reload_movies()
-#
-#    def set_categories_manager(self, categories_manager: CategoriesManager):
-#        """Recibe el Manager de categorias a usar"""
-#        self.__general_manager.categories_manager = categories_manager
-#        self.__load_categories()
-
-#    def set_content_providers_manager(self, content_providers_manager: ContentProvidersManager):
-#        """Recibe el Manager de content providers a usar"""
-#        self.__content_providers_manager = content_providers_manager
-#        self.__load_providers()
+        self.__load_content_providers()
 
     def __get_selected_movie(self) -> Movie:
         """Retorna la pelicula actualmente seleccionada de la lista del editor"""
@@ -49,6 +34,9 @@ class TkinterEditor(object):
                     self.__disable_save_button()
                     self.disable_editor()
                     self.edit_movie(movie)
+    
+    def __on_cp_menu_item_selected(self):
+        pass
 
     def __on_categories_combobox_selected(self, event):
         pass
@@ -90,7 +78,7 @@ class TkinterEditor(object):
                 category = self.__general_manager.categories_manager.create(self.__category.get())
                 self.__reload_categories()
                 movie = self.__general_manager.movies_manager.create(self.__title.get(), self.__description.get(), self.__releasedate.get(), self.__director.get(), category)
-                self.__general_manager.movies_manager.get_movies().append(movie)
+                self.__general_manager.movies_manager.movies.append(movie)
                 self.clear_editor()
                 self.__disable_save_button()
                 self.disable_editor()
@@ -158,13 +146,13 @@ class TkinterEditor(object):
 
     def __reload_categories(self):
         if self.__general_manager.categories_manager:
-            self.__categories_combo["values"] = self.__general_manager.categories_manager.get_categories()
+            self.__categories_combo["values"] = self.__general_manager.categories_manager.categories
 
     def __reload_movies(self):
         self.__movies_listbox.delete(0, END)
 
         if self.__general_manager.movies_manager:
-            movies = self.__general_manager.movies_manager.get_movies()
+            movies = self.__general_manager.movies_manager.movies
             row_format = "{:<5}  {:>}"
 
             for movie in movies:
@@ -172,19 +160,20 @@ class TkinterEditor(object):
 
     def __load_categories(self):
         if self.__general_manager.categories_manager:
-            categories = self.__general_manager.categories_manager.get_categories()
+            categories = self.__general_manager.categories_manager.categories
 
             self.__categories_combo['values'] = categories
 
     def __load_content_providers(self):
-        if self.__content_providers_manager:
-            providers = self.__content_providers_manager.get_providers()
+        if self.__general_manager.content_providers_manager:
+            providers = self.__general_manager.content_providers_manager.get_providers()
+            content_provider_menu = Menu(self.__menu)
 
             for provider in providers:
-                content_provider_menu = Menu(self.__menu)
-                content_provider_menu.add_radiobutton(label=provider)
+                default = provider.name == "empty"
+                content_provider_menu.add_radiobutton(label=provider.name, value=provider.key, command=self.__on_cp_menu_item_selected)
 
-            self.__menu_frame
+            self.__menu.add_cascade(label="Ajustes", menu=content_provider_menu)
 
     def __init__(self, parent: Tk = None, **configs):
         self.parent_window = parent
@@ -203,7 +192,6 @@ class TkinterEditor(object):
         self.__settings_menu.add_command(label="Salir", command=self.__on_exit_button_pressed) #self.parent_window.quit)
 
         self.__menu.add_cascade(label="Sistema", menu=self.__settings_menu)
-        self.__menu.add_cascade(label="Ajustes")
         self.parent_window.config(menu=self.__menu)
 
         # __list_frame contiene a la lista de peliculas

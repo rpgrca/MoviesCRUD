@@ -9,6 +9,7 @@ class GeneralManager(ItemsManager):
     def __init__(self):
         """Constructor"""
         self.__content_providers_manager = ContentProvidersManager()
+        self.__content_providers_manager.load()
         self.__current_content_provider = None
         self.__categories_manager = None
         self.__movies_manager = None

@@ -14,14 +14,15 @@ class MoviesManager(ItemsManager):
         """Carga los elementos desde el ContentProvider al Manager"""
         if self.get_content_provider():
             self.get_content_provider().load()
-            self.set_items(self.get_content_provider().get_movies())
+            self.set_items(self.get_content_provider().movies)
 
     def dump(self):
         """Graba los elementos en el Manager en el ContentProvider"""
         if self.get_content_provider():
-            self.get_content_provider().set_movies(self.get_items())
+            self.get_content_provider().movies = self.get_items()
 
-    def get_movies(self) -> List[Movie]:
+    @property
+    def movies(self) -> List[Movie]:
         """Retorna la lista actual de peliculas del Manager"""
         return super(MoviesManager, self).get_items()
 

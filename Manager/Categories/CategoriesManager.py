@@ -13,26 +13,27 @@ class CategoriesManager(ItemsManager):
         """Carga los elementos desde el ContentProvider al Manager"""
         if self.get_content_provider():
             self.get_content_provider().load()
-            self.set_items(self.get_content_provider().get_categories())
+            self.set_items(self.get_content_provider().categories)
 
     def dump(self):
         """Graba los elementos en el Manager en el ContentProvider"""
         if self.get_content_provider():
-            self.get_content_provider().set_categories(self.get_items())
+            self.get_content_provider().categories = self.get_items()
 
-    def get_categories(self) -> List[str]:
+    @property
+    def categories(self) -> List[str]:
         """Retorna la lista actual de categorias del Manager"""
         return super(CategoriesManager, self).get_items()
 
     def create(self, category: str) -> str:
-        if category not in self.get_categories():
-            self.get_categories().append(category)
+        if category not in self.categories:
+            self.categories.append(category)
 
         return category
 
     def get_category_index(self, category: str) -> int:
-        index = self.get_categories().index(category)
-        if index >= len(self.get_categories()):
+        index = self.categories.index(category)
+        if index >= len(self.categories):
             index = -1
 
         return index

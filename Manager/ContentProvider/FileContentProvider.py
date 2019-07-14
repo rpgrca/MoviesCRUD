@@ -7,9 +7,7 @@ class FileContentProvider(ContentProvider):
     def __init__(self, filename: str):
         super(FileContentProvider, self).__init__()
         self.__filename = filename
-
-    def get_name(self) -> str:
-        return "Archivo de texto"
+        self.name = "Archivo de texto"
 
     def load(self):
         # TODO: Cargar items del archivo
