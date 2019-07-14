@@ -12,6 +12,4 @@ class MoviesFactory:
 
     @staticmethod
     def create(dictionary: dict) -> Movie:
-        movie = Movie(dictionary=dictionary)
-        #movie.fromDictionary(dictionary)
-        return movie
+        return Movie(dictionary=dictionary)

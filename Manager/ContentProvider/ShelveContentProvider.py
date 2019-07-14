@@ -10,7 +10,7 @@ class ShelveContentProvider(ContentProvider):
         super(ShelveContentProvider, self).__init__()
         self.__filename = filename
         self.__shelf = None
-        self.__initialized = False
+        self.initialized = False
         self.name = "Base Shelve"
 
     def __get_config(self, key: str) -> List[Any]:
@@ -24,19 +24,19 @@ class ShelveContentProvider(ContentProvider):
 
     def load(self):
         """Carga los datos de las peliculas y categorias del shelf"""
-        if not self.__initialized:
+        if not self.initialized:
             self.__shelf =  shelve.open(self.__filename)
             self.movies = self.__get_config("movies")
             self.categories = self.__get_config("categories")
-            self.__initialized = True
+            self.initialized = True
 
     def save(self):
         """Graba los datos de las peliculas y categorias en un shelf"""
-        if self.__initialized:
+        if self.initialized:
             self.__shelf["movies"] = self.movies
             self.__shelf["categories"] = self.categories
             self.__shelf.close()
-            self.__initialized = False
+            self.initialized = False
             self.__shelf = None
             self.categories = []
             self.movies = []

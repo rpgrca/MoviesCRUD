@@ -12,19 +12,19 @@ class MoviesManager(ItemsManager):
 
     def load(self):
         """Carga los elementos desde el ContentProvider al Manager"""
-        if self.get_content_provider():
-            self.get_content_provider().load()
-            self.set_items(self.get_content_provider().movies)
+        if self.content_provider:
+            self.content_provider.load()
+            self.items = self.content_provider.movies
 
     def dump(self):
         """Graba los elementos en el Manager en el ContentProvider"""
-        if self.get_content_provider():
-            self.get_content_provider().movies = self.get_items()
+        if self.content_provider:
+            self.content_provider.movies = self.items
 
     @property
     def movies(self) -> List[Movie]:
         """Retorna la lista actual de peliculas del Manager"""
-        return super(MoviesManager, self).get_items()
+        return super(MoviesManager, self).items
 
     def create(self, title: str, description: str, releasedate: str, director: str, category: str) -> Movie:
         """Crea una pelicula con los datos dados"""
@@ -32,11 +32,11 @@ class MoviesManager(ItemsManager):
 
     def remove(self, identifier: int):
         """Borra la pelicula con el identificador dado del Manager"""
-        self.set_items(list(filter(lambda x : x.identifier != identifier, self.get_items())))
+        self.items = list(filter(lambda x : x.identifier != identifier, self.items))
 
     def get_movie(self, identifier: str) -> Movie:
         """Retorna la pelicula cuyo identificador ha sido dado"""
-        result = list(filter(lambda x : x.identifier == identifier, self.get_items()))
+        result = list(filter(lambda x : x.identifier == identifier, self.items))
         if result and len(result) > 0:
             return result[0]
  
@@ -44,7 +44,7 @@ class MoviesManager(ItemsManager):
 
     def get_next_identifier(self) -> int:
         """Retorna el proximo identificador valido para una pelicula"""
-        if self.get_items():
-            return self.get_items()[-1].identifier + 1
+        if self.items:
+            return self.items[-1].identifier + 1
         else:
             return 1

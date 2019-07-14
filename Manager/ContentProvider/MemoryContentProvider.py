@@ -20,3 +20,4 @@ class MemoryContentProvider(ContentProvider):
         """Carga las peliculas y categorias por defecto"""
         self.movies = self.__movies
         self.categories = self.__categories
+        self.initialized = True

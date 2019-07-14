@@ -19,8 +19,8 @@ class ContentProvidersManager(ItemsManager):
         for provider in ContentProviderFactory.get_providers():
             content_providers.append(ContentProviderFactory.create(provider))
 
-        self.set_items(content_providers)
+        self.items = content_providers
 
     def get_providers(self) -> List[ContentProvider]:
         """Retorna la lista actual de content providers del Manager"""
-        return super(ContentProvidersManager, self).get_items()
+        return super(ContentProvidersManager, self).items

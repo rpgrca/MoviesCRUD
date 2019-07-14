@@ -12,12 +12,11 @@ class JSONContentProvider(ContentProvider):
         """Constructor"""
         super(JSONContentProvider, self).__init__()
         self.__filename = filename
-        self.__initialized = False
         self.name = "Archivo JSON"
 
     def load(self):
         """Carga las listas de peliculas y categorias desde un archivo JSON"""
-        if not self.__initialized:
+        if not self.initialized:
             respjson = self.__load_json(self.__filename)
             if respjson is not None:
                 if respjson.get("movies"):
@@ -25,17 +24,17 @@ class JSONContentProvider(ContentProvider):
 
                 if respjson.get("categories"):
                     self.categories = respjson["categories"]
-            self.__initialized = True
+            self.initialized = True
 
     def save(self):
         """Graba las listas de peliculas y categorias en un archivo JSON"""
-        if self.__initialized:
+        if self.initialized:
             # Esto sirve solo para clases simples como las mias
             dictionary = {}
             dictionary["movies"] = [x.toDictionary() for x in self.movies]
             dictionary["categories"] = self.categories
             self.__save_json(self.__filename, dictionary)
-            self.__initialized = False
+            self.initialized = False
             self.categories = []
             self.movies = []
 

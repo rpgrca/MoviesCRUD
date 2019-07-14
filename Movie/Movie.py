@@ -30,55 +30,55 @@ class Movie(object):
         else:
             raise ValueError("El identificador de la pelicula no puede estar vacio ni ser menor a 1")
 
-    def get_title(self):
+    def __get_title(self):
         """Retorna el titulo de la pelicula"""
         return self.__title
 
-    def set_title(self, value):
+    def __set_title(self, value):
         """Asigna el titulo a la pelicula"""
         if value:
             self.__title = value
         else:
             raise ValueError("El titulo de la pelicula no puede estar vacio")
 
-    def get_description(self):
+    def __get_description(self):
         """Retorna la descripcion de la pelicula"""
         return self.__description
 
-    def set_description(self, value):
+    def __set_description(self, value):
         """Asigna la descripcion a la pelicula"""
         if value:
             self.__description = value
         else:
             raise ValueError("La descripcion de la pelicula no puede estar vacio")
 
-    def get_releasedate(self):
+    def __get_releasedate(self):
         """Retorna la fecha de estreno de la pelicula"""
         return self.__releasedate
 
-    def set_releasedate(self, value):
+    def __set_releasedate(self, value):
         """Asigna la fecha de estreno de la pelicula"""
         if value:
             self.__releasedate = value
         else:
             raise ValueError("La fecha de estreno de la pelicula no puede estar vacia")
 
-    def get_director(self):
+    def __get_director(self):
         """Retorna el director de la pelicula"""
         return self.__director
 
-    def set_director(self, value):
+    def __set_director(self, value):
         """Asigna el director a la pelicula"""
         if value:
             self.__director = value
         else:
             raise ValueError("El director de la pelicula no puede estar vacio")
 
-    def get_category(self):
+    def __get_category(self):
         """Retorna la categoria de la pelicula"""
         return self.__category
 
-    def set_category(self, value):
+    def __set_category(self, value):
         """Asigna la categoria a la pelicula"""
         if value:
             self.__category = value
@@ -86,11 +86,11 @@ class Movie(object):
             raise ValueError("La categoria de la pelicula no puede estar vacia")
 
     identifier = property(__get_identifier, __set_identifier)
-    title = property(get_title, set_title)
-    description = property(get_description, set_description)
-    releasedate = property(get_releasedate, set_releasedate)
-    director = property(get_director, set_director)
-    category = property(get_category, set_category)
+    title = property(__get_title, __set_title)
+    description = property(__get_description, __set_description)
+    releasedate = property(__get_releasedate, __set_releasedate)
+    director = property(__get_director, __set_director)
+    category = property(__get_category, __set_category)
 
     def fromDictionary(self, dictionary: dict):
         """Carga los valores del diccionario dado en la estructura interna"""
@@ -103,4 +103,4 @@ class Movie(object):
 
     def __str__(self):
         """String"""
-        return 'Id: {0}, Titulo: {1}, Desc: {2}, Fecha: {3}, Director: {4}, Categoria: {5}'.format(self.__identifier, self.__title, self.__description, self.__releasedate, self.__director, self.category)
+        return 'Id: {0}, Titulo: {1}, Desc: {2}, Fecha: {3}, Director: {4}, Categoria: {5}'.format(self.identifier, self.title, self.description, self.releasedate, self.director, self.category)

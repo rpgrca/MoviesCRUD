@@ -8,6 +8,7 @@ class ContentProvider(object):
         self.__categories = []
         self.__name = None
         self.__key = None
+        self.__initialized = False
 
     def __get_key(self) -> str:
         """Retorna la llave de la fabrica del Content Provider"""
@@ -47,8 +48,17 @@ class ContentProvider(object):
         """Reemplaza la lista de categorias interna por otra"""
         self.__categories = categories
 
+    def __get_initialized(self) -> bool:
+        """Retorna si el content provider esta inicializado"""
+        return self.__initialized
+
+    def __set_initialized(self, value: bool):
+        """Asigna si el Content Provider esta inicializado"""
+        self.__initialized = value
+
     name = property(__get_name, __set_name)
     key = property(__get_key, __set_key)
+    initialized = property(__get_initialized, __set_initialized)
     movies = property(__get_movies, __set_movies)
     categories = property(__get_categories, __set_categories)
 

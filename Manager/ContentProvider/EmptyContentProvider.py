@@ -7,3 +7,4 @@ class EmptyContentProvider(ContentProvider):
     def __init__(self):
         super(EmptyContentProvider, self).__init__()
         self.name = "Vacio (sin valores)"
+        self.initialized = True

@@ -11,19 +11,19 @@ class CategoriesManager(ItemsManager):
 
     def load(self):
         """Carga los elementos desde el ContentProvider al Manager"""
-        if self.get_content_provider():
-            self.get_content_provider().load()
-            self.set_items(self.get_content_provider().categories)
+        if self.content_provider:
+            self.content_provider.load()
+            self.items = self.content_provider.categories
 
     def dump(self):
         """Graba los elementos en el Manager en el ContentProvider"""
-        if self.get_content_provider():
-            self.get_content_provider().categories = self.get_items()
+        if self.content_provider:
+            self.content_provider.categories = self.items
 
     @property
     def categories(self) -> List[str]:
         """Retorna la lista actual de categorias del Manager"""
-        return super(CategoriesManager, self).get_items()
+        return super(CategoriesManager, self).items
 
     def create(self, category: str) -> str:
         if category not in self.categories:
