@@ -13,33 +13,41 @@ from Manager.ContentProvider.CSVContentProvider import CSVContentProvider
 class ContentProviderFactory:
     @staticmethod
     def get_providers() -> List[str]:
-        return [ "memory", "file", "json", "csv", "empty", "shelve", "mysql", "zodb", "mongodb" ]
+        return [ MemoryContentProvider.KEY(),
+                 FileContentProvider.KEY(),
+                 JSONContentProvider.KEY(),
+                 CSVContentProvider.KEY(),
+                 EmptyContentProvider.KEY(),
+                 ShelveContentProvider.KEY(),
+                 MySQLContentProvider.KEY(),
+                 ZODBContentProvider.KEY(),
+                 MongoDBContentProvider.KEY() ]
 
     @staticmethod
     def create(content_provider_type: str, extra_data: Any = None) -> ContentProvider:
         content_provider_type = content_provider_type.lower()
-        if content_provider_type == "memory":
+        if content_provider_type == MemoryContentProvider.KEY():
             return MemoryContentProvider()
 
-        elif content_provider_type == "file":
+        elif content_provider_type == FileContentProvider.KEY():
             return FileContentProvider(extra_data)
 
-        elif content_provider_type == "json":
+        elif content_provider_type == JSONContentProvider.KEY():
             return JSONContentProvider(extra_data)
 
-        elif content_provider_type == "csv":
+        elif content_provider_type == CSVContentProvider.KEY():
             return CSVContentProvider(extra_data)
 
-        elif content_provider_type == "shelve":
+        elif content_provider_type == ShelveContentProvider.KEY():
             return ShelveContentProvider(extra_data)
 
-        elif content_provider_type == "mysql":
+        elif content_provider_type == MySQLContentProvider.KEY():
             return MySQLContentProvider(extra_data)
 
-        elif content_provider_type == "zodb":
+        elif content_provider_type == ZODBContentProvider.KEY():
             return ZODBContentProvider(extra_data)
 
-        elif content_provider_type == "mongodb":
+        elif content_provider_type == MongoDBContentProvider.KEY():
             return MongoDBContentProvider(extra_data)
 
         else:
