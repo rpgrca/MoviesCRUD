@@ -8,6 +8,9 @@ from Manager.GeneralManager import GeneralManager
 from Movie.Movie import Movie
 
 class TkinterEditor(object):
+    LABEL_OK_COLOR = "black"
+    LABEL_ERROR_COLOR = "red"
+
     def set_general_manager(self, general_manager: GeneralManager):
         """Recibe el Manager general a usar"""
         self.__general_manager = general_manager
@@ -54,17 +57,6 @@ class TkinterEditor(object):
             self.__enable_save_button()
             self.__disable_delete_button()
 
-    def __verify_text(self, label: Label, textbox: Entry):
-        can_save = False
-
-        if textbox.get():
-            label["fg"] = "black"
-            can_save = True
-        else:
-            label["fg"] = "red"
-
-        return can_save
-
     def __on_save_button_pressed(self):
         if self.__general_manager.movies_manager and self.__general_manager.categories_manager:
             can_save = True
@@ -95,6 +87,18 @@ class TkinterEditor(object):
                 self.disable_editor()
                 self.__disable_delete_button()
                 self.__disable_save_button()
+
+    def __verify_text(self, label: Label, textbox: Entry) -> bool:
+        """Cambia el color del Label si el usuario no completo el textbox retornando False"""
+        can_save = False
+
+        if textbox.get():
+            label["fg"] = TkinterEditor.LABEL_OK_COLOR
+            can_save = True
+        else:
+            label["fg"] = TkinterEditor.LABEL_ERROR_COLOR
+
+        return can_save
 
     def __enable_delete_button(self):
         self.__remove_button["state"] = "normal"
@@ -169,13 +173,17 @@ class TkinterEditor(object):
             providers = self.__general_manager.content_providers_manager.get_providers()
             content_provider_menu = Menu(self.__menu)
 
+            self.__selected_content_provider = StringVar()
+            self.__selected_content_provider.set("empty")
             for provider in providers:
-                default = provider.name == "empty"
-                content_provider_menu.add_radiobutton(label=provider.name, value=provider.key, command=self.__on_cp_menu_item_selected)
+                print(provider.key)
+                content_provider_menu.add_radiobutton(label=provider.name, variable=self.__selected_content_provider, value=provider.key, command=self.__on_cp_menu_item_selected)
 
             self.__menu.add_cascade(label="Ajustes", menu=content_provider_menu)
 
     def __init__(self, parent: Tk = None, **configs):
+        self.__general_manager = None
+        self.__selected_content_provider = "empty"
         self.parent_window = parent
         self.parent_window.wm_title("ABMC Peliculas")
         self.parent_window.protocol("WM_DELETE_WINDOW", self.__on_exit_button_pressed)
@@ -187,10 +195,7 @@ class TkinterEditor(object):
 
         self.__menu = Menu(self.parent_window)
         self.__settings_menu = Menu(self.__menu, tearoff=0)
-        #self.__settings_menu.add_command(label="Ajustes", command=self.__on_settings_option_pressed)
-        #self.__settings_menu.add_separator()
         self.__settings_menu.add_command(label="Salir", command=self.__on_exit_button_pressed) #self.parent_window.quit)
-
         self.__menu.add_cascade(label="Sistema", menu=self.__settings_menu)
         self.parent_window.config(menu=self.__menu)
 
