@@ -12,7 +12,7 @@ class ContentProvider(object):
 
     def __get_key(self) -> str:
         """Retorna la llave de la fabrica del Content Provider"""
-        pass
+        return self.__key
 
     def __set_key(self, value: str):
         """Asigna la llave de la fabrica al Content Provider"""
