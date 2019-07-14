@@ -1,3 +1,5 @@
+"""peliculasGUI.py"""
+
 from tkinter import Tk
 from Editor.TkinterEditor import TkinterEditor
 from Manager.Movies.MoviesManager import MoviesManager
