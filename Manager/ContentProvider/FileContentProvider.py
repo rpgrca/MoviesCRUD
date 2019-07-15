@@ -6,9 +6,10 @@ from Manager.ContentProvider.ContentProvider import ContentProvider
 class FileContentProvider(ContentProvider):
     def __init__(self, filename: str):
         super(FileContentProvider, self).__init__()
-        self.__filename = filename
         self.name = "Archivo de texto"
+        self.extra_data = "movies.txt"
         self.key = FileContentProvider.KEY()
+        self.__filename = filename if filename else self.extra_data
 
     @staticmethod
     def KEY() -> str:

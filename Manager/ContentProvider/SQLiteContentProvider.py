@@ -7,9 +7,10 @@ class SQLiteContentProvider(ContentProvider):
     def __init__(self, connection_string: str):
         """Constructor"""
         super(SQLiteContentProvider, self).__init__()
-        self.__connection_string = connection_string
         self.name = "Base SQLite3"
+        self.extra_data = "movies.sqlite3"
         self.key = SQLiteContentProvider.KEY()
+        self.__connection_string = connection_string if connection_string else self.extra_data
 
     @staticmethod
     def KEY() -> str:

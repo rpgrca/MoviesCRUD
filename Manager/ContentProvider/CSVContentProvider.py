@@ -23,9 +23,10 @@ from Manager.ContentProvider.ContentProvider import ContentProvider
 class CSVContentProvider(ContentProvider):
     def __init__(self, filename: str):
         super(CSVContentProvider, self).__init__()
-        self.__filename = filename
         self.name = "Archivo CSV"
+        self.extra_data = "movies.csv"
         self.key = CSVContentProvider.KEY()
+        self.__filename = filename if filename else self.extra_data
 
     @staticmethod
     def KEY() -> str:

@@ -11,9 +11,10 @@ class JSONContentProvider(ContentProvider):
     def __init__(self, filename: str):
         """Constructor"""
         super(JSONContentProvider, self).__init__()
-        self.__filename = filename
         self.name = "Archivo JSON"
+        self.extra_data = "movies.json"
         self.key = JSONContentProvider.KEY()
+        self.__filename = filename if filename else self.extra_data
 
     @staticmethod
     def KEY() -> str:

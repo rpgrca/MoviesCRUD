@@ -8,11 +8,11 @@ class ShelveContentProvider(ContentProvider):
     def __init__(self, filename: str):
         """Constructor"""
         super(ShelveContentProvider, self).__init__()
-        self.__filename = filename
         self.__shelf = None
-        self.initialized = False
         self.name = "Base Shelve"
+        self.extra_data = "movies.shelve"
         self.key = ShelveContentProvider.KEY()
+        self.__filename = filename if filename else self.extra_data
 
     @staticmethod
     def KEY() -> str:
