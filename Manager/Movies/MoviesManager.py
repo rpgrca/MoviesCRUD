@@ -34,7 +34,7 @@ class MoviesManager(ItemsManager):
         """Borra la pelicula con el identificador dado del Manager"""
         self.items = list(filter(lambda x : x.identifier != identifier, self.items))
 
-    def get_movie(self, identifier: str) -> Movie:
+    def get_movie(self, identifier: int) -> Movie:
         """Retorna la pelicula cuyo identificador ha sido dado"""
         result = list(filter(lambda x : x.identifier == identifier, self.items))
         if result and len(result) > 0:
