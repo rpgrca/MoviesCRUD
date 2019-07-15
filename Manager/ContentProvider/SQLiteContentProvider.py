@@ -33,7 +33,6 @@ class SQLiteContentProvider(ContentProvider):
 
             cursor = self.__connection.cursor()
             for row in cursor.execute('SELECT * FROM Categories'):
-                self.categories.append(row[1])
                 categories[row[0]] = row[1]
 
             cursor.close()
@@ -42,12 +41,15 @@ class SQLiteContentProvider(ContentProvider):
             for row in cursor.execute('SELECT * FROM Movies'):
                 self.movies.append(MoviesFactory.create1(int(row[0]), row[1], row[2], row[3], row[4], categories[row[5]]))
 
+            self.categories = list(categories.values())
             cursor.close()
 
     def save(self):
         if self.__connection:
             cursor = self.__connection.cursor()
             try:
+                cursor.execute("DELETE FROM Movies")
+
                 for movie in self.movies:
                     cursor.execute("SELECT id FROM Categories WHERE name LIKE '{}'".format(movie.category))
                     result = cursor.fetchone()
