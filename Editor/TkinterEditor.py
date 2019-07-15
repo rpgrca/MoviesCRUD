@@ -2,6 +2,8 @@
 
 from tkinter import *
 from tkinter import ttk, messagebox
+from Editor.SettingsEditor import SettingsEditor
+from Editor.WindowsUtilities import WindowsUtilities
 from Manager.Movies.MoviesManager import MoviesManager
 from Manager.Categories.CategoriesManager import CategoriesManager
 from Manager.GeneralManager import GeneralManager
@@ -67,6 +69,16 @@ class TkinterEditor(object):
         """Callback para recordar que algo no esta implementado"""
         messagebox.showwarning(TkinterEditor.QUESTION_NOT_IMPLEMENTED_TITLE, TkinterEditor.QUESTION_NOT_IMPLEMENTED_MESSAGE)
 
+    def __on_configuration_clicked(self):
+        """Callback llamada al seleccionar la opcion Configuracion del menu"""
+        popup = Toplevel()
+        editor = SettingsEditor(popup)
+        editor.configure(self.__general_manager.content_providers_manager)
+
+        popup.grab_set()
+        popup.focus_set()
+        popup.wait_window()
+
     def __on_movies_listbox_selected(self, event):
         """Callback llamada cuando se selecciona un elemento de la lista"""
         if self.__general_manager.movies_manager:
@@ -91,6 +103,7 @@ class TkinterEditor(object):
         if messagebox.askokcancel(TkinterEditor.QUESTION_RELOAD_TITLE, TkinterEditor.QUESTION_RELOAD_MESSAGE):
             self.__switch_content_provider(self.__selected_content_provider.get())
         else:
+            # TODO: Volver a seleccionar el Content Provider anterior
             pass
 
     def __on_categories_combobox_selected(self, event):
@@ -264,7 +277,7 @@ class TkinterEditor(object):
                 content_provider_menu.add_radiobutton(label=provider.name, variable=self.__selected_content_provider, value=provider.key, command=self.__on_cp_menu_item_selected)
 
             content_provider_menu.add_separator()
-            content_provider_menu.add_command(label=TkinterEditor.CONFIGURATION_MENU)
+            content_provider_menu.add_command(label=TkinterEditor.CONFIGURATION_MENU, command=self.__on_configuration_clicked)
             self.__menu.add_cascade(label=TkinterEditor.SETTINGS_MENU, menu=content_provider_menu)
 
     def __init__(self, parent: Tk = None, **configs):
@@ -274,7 +287,7 @@ class TkinterEditor(object):
         self.parent_window = parent
         self.parent_window.wm_title(TkinterEditor.APPLICATION_TITLE)
         self.parent_window.protocol('WM_DELETE_WINDOW', self.__on_exit_button_pressed)
-        self.parent_window.geometry("{}x{}".format(TkinterEditor.WINDOW_WIDTH, TkinterEditor.WINDOW_HEIGHT))
+        WindowsUtilities.center_window(self.parent_window, TkinterEditor.WINDOW_WIDTH, TkinterEditor.WINDOW_HEIGHT)
 
         # __main_window es la ventana principal
         self.__main_window = Frame(self.parent_window)
