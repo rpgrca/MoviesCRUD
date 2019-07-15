@@ -9,6 +9,7 @@ from Manager.ContentProvider.MySQLContentProvider import MySQLContentProvider
 from Manager.ContentProvider.ZODBContentProvider import ZODBContentProvider
 from Manager.ContentProvider.MongoDBContentProvider import MongoDBContentProvider
 from Manager.ContentProvider.CSVContentProvider import CSVContentProvider
+from Manager.ContentProvider.SQLiteContentProvider import SQLiteContentProvider
 
 class ContentProviderFactory:
     @staticmethod
@@ -21,7 +22,8 @@ class ContentProviderFactory:
                  ShelveContentProvider.KEY(),
                  MySQLContentProvider.KEY(),
                  ZODBContentProvider.KEY(),
-                 MongoDBContentProvider.KEY() ]
+                 MongoDBContentProvider.KEY(),
+                 SQLiteContentProvider.KEY() ]
 
     @staticmethod
     def create(content_provider_type: str, extra_data: Any = None) -> ContentProvider:
@@ -49,6 +51,9 @@ class ContentProviderFactory:
 
         elif content_provider_type == MongoDBContentProvider.KEY():
             return MongoDBContentProvider(extra_data)
+
+        elif content_provider_type == SQLiteContentProvider.KEY():
+            return SQLiteContentProvider(extra_data)
 
         else:
             return EmptyContentProvider()
