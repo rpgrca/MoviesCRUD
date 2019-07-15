@@ -7,7 +7,7 @@ class MoviesFactory:
 #        return Movie()
 
     @staticmethod
-    def create(identifier: int, title: str, description: str, releasedate: str, director: str, category: str) -> Movie:
+    def create1(identifier: int, title: str, description: str, releasedate: str, director: str, category: str) -> Movie:
         return Movie(identifier, title, description, releasedate, director, category)
 
     @staticmethod
