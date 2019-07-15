@@ -4,13 +4,15 @@ import json
 class Movie(object):
     def __init__(self, identifier: int = -1, title: str = "", description: str = "", releasedate: str = "", director: str = "", category: str = "", **kwargs):
         """Constructor"""
+        # TODO: ver si esto esta funcionando bien
         if kwargs and kwargs["dictionary"]:
-            identifier = kwargs["dictionary"]["identifier"]
-            title = kwargs["dictionary"]["title"]
-            description = kwargs["dictionary"]["description"]
-            releasedate = kwargs["dictionary"]["releasedate"]
-            director = kwargs["dictionary"]["director"]
-            category = kwargs["dictionary"]["category"]
+            identifier, title, description, releasedate, director, category = kwargs['dictionary']
+            #identifier = kwargs["dictionary"]["identifier"]
+            #title = kwargs["dictionary"]["title"]
+            #description = kwargs["dictionary"]["description"]
+            #releasedate = kwargs["dictionary"]["releasedate"]
+            #director = kwargs["dictionary"]["director"]
+            #category = kwargs["dictionary"]["category"]
 
         self.identifier = identifier
         self.title = title
@@ -18,6 +20,10 @@ class Movie(object):
         self.releasedate = releasedate
         self.director = director
         self.category = category
+
+    @staticmethod
+    def getHeaders():
+        return ['identifier', 'title', 'description', 'releasedate', 'director', 'category']
 
     def __get_identifier(self):
         """Retorna el identificador de la pelicula"""
@@ -98,8 +104,9 @@ class Movie(object):
 
     def toDictionary(self) -> dict:
         """Retorna el diccionario interno para serializar como JSON"""
-        return { 'identifier': self.identifier, 'title': self.title, 'description': self.description, 'releasedate': self.releasedate, 'director': self.director, 'category': self.category }
+        #return { 'identifier': self.identifier, 'title': self.title, 'description': self.description, 'releasedate': self.releasedate, 'director': self.director, 'category': self.category }
         #return self.__dict__
+        return dict(zip(Movie.getHeaders(), [self.identifier, self.title, self.description, self.releasedate, self.director, self.category]))
 
     def __str__(self):
         """String"""
