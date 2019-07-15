@@ -1,16 +1,22 @@
 """SQLiteContentProvider.py"""
 
 from typing import List, Any
+import sqlite3
 from Manager.ContentProvider.ContentProvider import ContentProvider
+from Movie.MoviesFactory import MoviesFactory
 
 class SQLiteContentProvider(ContentProvider):
-    def __init__(self, connection_string: str):
+    MOVIES_TABLE = "movies"
+    CATEGORIES_TABLE = "categories"
+
+    def __init__(self, filename: str):
         """Constructor"""
         super(SQLiteContentProvider, self).__init__()
         self.name = "Base SQLite3"
         self.extra_data = "movies.sqlite3"
         self.key = SQLiteContentProvider.KEY()
-        self.__connection_string = connection_string if connection_string else self.extra_data
+        self.__filename = filename if filename else self.extra_data
+        self.__connection = None
 
     @staticmethod
     def KEY() -> str:
@@ -18,9 +24,44 @@ class SQLiteContentProvider(ContentProvider):
         return "sqlite"
 
     def load(self):
-        # TODO: Cargar items de la base de datos
-        pass
+        if not self.__connection:
+            categories = {}
+            self.__connection = sqlite3.connect(self.__filename)
+            self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
+            self.__connection.execute('CREATE TABLE IF NOT EXISTS Movies (id INTEGER PRIMARY KEY, title varchar(100) NOT NULL, description varchar(1024) NOT NULL, releasedate TEXT NOT NULL, director varchar(100) NOT NULL, category INTEGER NOT NULL, FOREIGN KEY(category) REFERENCES categories(id))')
+            self.__connection.commit()
+
+            cursor = self.__connection.cursor()
+            for row in cursor.execute('SELECT * FROM Categories'):
+                self.categories.append(row[1])
+                categories[row[0]] = row[1]
+
+            cursor.close()
+
+            cursor = self.__connection.cursor()
+            for row in cursor.execute('SELECT * FROM Movies'):
+                self.movies.append(MoviesFactory.create1(int(row[0]), row[1], row[2], row[3], row[4], categories[row[5]]))
+
+            cursor.close()
 
     def save(self):
-        # TODO: Grabar items de la base de datos
-        pass
+        if self.__connection:
+            cursor = self.__connection.cursor()
+            try:
+                for movie in self.movies:
+                    cursor.execute("SELECT id FROM Categories WHERE name LIKE '{}'".format(movie.category))
+                    result = cursor.fetchone()
+                    if not result:
+                        cursor.execute("INSERT INTO Categories (name) VALUES ('{}')".format(movie.category))
+                        category_id = cursor.lastrowid
+                    else:
+                        category_id = result[0]
+
+                    cursor.execute("INSERT INTO Movies (title, description, releasedate, director, category) VALUES ('{}', '{}', '{}', '{}', {})".format(movie.title, movie.description, movie.releasedate, movie.director, category_id))
+
+                self.__connection.commit()
+                cursor.close()
+            except sqlite3.IntegrityError:
+                print("El ID ya existe en la base de datos")
+
+            self.__connection.close()
