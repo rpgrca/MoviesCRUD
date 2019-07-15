@@ -101,10 +101,10 @@ class TkinterEditor(object):
     def __on_cp_menu_item_selected(self):
         """Callback llamada al seleccionar un content provider"""
         if messagebox.askokcancel(TkinterEditor.QUESTION_RELOAD_TITLE, TkinterEditor.QUESTION_RELOAD_MESSAGE):
-            self.__switch_content_provider(self.__selected_content_provider.get())
+            self.__previous_content_provider = self.__selected_content_provider.get()
+            self.__switch_content_provider(self.__previous_content_provider)
         else:
-            # TODO: Volver a seleccionar el Content Provider anterior
-            pass
+            self.__selected_content_provider.set(self.__previous_content_provider)
 
     def __on_categories_combobox_selected(self, event):
         """Callback llamada al seleccionar un elemento del combo"""
@@ -272,7 +272,8 @@ class TkinterEditor(object):
             content_provider_menu = Menu(self.__menu)
 
             self.__selected_content_provider = StringVar()
-            self.__selected_content_provider.set(self.__general_manager.content_provider.key)
+            self.__previous_content_provider = self.__general_manager.content_provider.key
+            self.__selected_content_provider.set(self.__previous_content_provider)
             for provider in providers:
                 content_provider_menu.add_radiobutton(label=provider.name, variable=self.__selected_content_provider, value=provider.key, command=self.__on_cp_menu_item_selected)
 
@@ -283,7 +284,8 @@ class TkinterEditor(object):
     def __init__(self, parent: Tk = None, **configs):
         """Constructor"""
         self.__general_manager = None
-        self.__selected_content_provider = 'empty'
+        self.__selected_content_provider = None
+        self.__previous_content_provider = None
         self.parent_window = parent
         self.parent_window.wm_title(TkinterEditor.APPLICATION_TITLE)
         self.parent_window.protocol('WM_DELETE_WINDOW', self.__on_exit_button_pressed)
