@@ -4,6 +4,7 @@ from Manager.Categories.CategoriesManager import CategoriesManager
 from Manager.Movies.MoviesManager import MoviesManager
 from Manager.ContentProvider.ContentProvidersManager import ContentProvidersManager
 from Manager.ItemsManager import ItemsManager
+from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class GeneralManager(ItemsManager):
     def __init__(self):
@@ -25,6 +26,10 @@ class GeneralManager(ItemsManager):
     @property
     def content_providers_manager(self):
         return self.__content_providers_manager
+
+    @property
+    def content_provider(self) -> ContentProvider:
+        return self.__current_content_provider
 
     def select_content_provider(self, content_provider: str, extra_data: str = None):
         self.__current_content_provider = self.__content_providers_manager.create(content_provider, extra_data)
