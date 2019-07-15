@@ -13,7 +13,6 @@ if __name__ == '__main__':
     editor = TkinterEditor(root)
 
     manager = GeneralManager()
-    #manager.select_content_provider("json", "movies.json")
     manager.select_content_provider("memory")
     manager.load()
 
