@@ -8,6 +8,7 @@ class ContentProvider(object):
         self.__categories = []
         self.__name = None
         self.__key = None
+        self.__extra_data = None
         self.__initialized = False
 
     def __get_key(self) -> str:
@@ -31,6 +32,14 @@ class ContentProvider(object):
             self.__name = value
         else:
             raise ValueError("El nombre del Content Provider no puede estar vacio")
+
+    def __get_extra_data(self) -> str:
+        """Retorna la informacion extra del Content Provider"""
+        return self.__extra_data
+
+    def __set_extra_data(self, value: str):
+        """Asigna la informacion extra al Content Provider"""
+        self.__extra_data = value
 
     def __get_movies(self) -> List[Movie]:
         """Retorna la lista de peliculas leidas"""
@@ -58,6 +67,7 @@ class ContentProvider(object):
 
     name = property(__get_name, __set_name)
     key = property(__get_key, __set_key)
+    extra_data = property(__get_extra_data, __set_extra_data)
     initialized = property(__get_initialized, __set_initialized)
     movies = property(__get_movies, __set_movies)
     categories = property(__get_categories, __set_categories)
