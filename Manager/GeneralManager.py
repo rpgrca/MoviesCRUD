@@ -16,15 +16,15 @@ class GeneralManager(ItemsManager):
         self.__movies_manager = None
 
     @property
-    def movies_manager(self):
+    def movies_manager(self) -> MoviesManager:
         return self.__movies_manager
 
     @property
-    def categories_manager(self):
+    def categories_manager(self) -> CategoriesManager:
         return self.__categories_manager
 
     @property
-    def content_providers_manager(self):
+    def content_providers_manager(self) -> ContentProvidersManager:
         return self.__content_providers_manager
 
     @property
@@ -32,6 +32,7 @@ class GeneralManager(ItemsManager):
         return self.__current_content_provider
 
     def select_content_provider(self, content_provider: str, extra_data: str = None):
+        """Selecciona un nuevo Content Provider, inicializandolo con los datos indicados"""
         self.__current_content_provider = self.__content_providers_manager.create(content_provider, extra_data)
 
     def load(self):
