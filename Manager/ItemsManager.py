@@ -3,6 +3,8 @@ from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class ItemsManager(object):
+    """Base para todos los manejadores del programa"""
+
     def __init__(self, content_provider: ContentProvider):
         """Constructor"""
         self.__content_provider = content_provider

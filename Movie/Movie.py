@@ -1,6 +1,8 @@
 """Movie.py"""
 
 class Movie(object):
+    """Clase que representa a una pelicula en el programa"""
+
     def __init__(self, identifier: int = -1, title: str = "", description: str = "", releasedate: str = "", director: str = "", category: str = "", **kwargs):
         """Constructor"""
         # El diccionario tiene maxima prioridad

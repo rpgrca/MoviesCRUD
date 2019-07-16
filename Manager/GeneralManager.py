@@ -7,6 +7,7 @@ from Manager.ItemsManager import ItemsManager
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class GeneralManager(ItemsManager):
+    """Este manejador contiene al resto de los manejadores, ademas de una referencia al content provider activo"""
     def __init__(self):
         """Constructor"""
         self.__content_providers_manager = ContentProvidersManager()
