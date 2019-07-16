@@ -2,6 +2,8 @@ from typing import List, Any
 from Movie.Movie import Movie
 
 class ContentProvider(object):
+    """Base para los Content Providers, las clases que se encargan de la serializacion final"""
+
     def __init__(self):
         """Constructor"""
         self.__movies = []

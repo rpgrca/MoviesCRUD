@@ -1,3 +1,5 @@
+"""ContentProviderFactory.py"""
+
 from typing import Any, List
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Manager.ContentProvider.MemoryContentProvider import MemoryContentProvider
@@ -12,8 +14,11 @@ from Manager.ContentProvider.CSVContentProvider import CSVContentProvider
 from Manager.ContentProvider.SQLiteContentProvider import SQLiteContentProvider
 
 class ContentProviderFactory:
+    """Fabrica para crear los Content Providers"""
+
     @staticmethod
     def get_providers() -> List[str]:
+        """Retorna las llaves de todos los Content Providers disponibles"""
         return [ MemoryContentProvider.KEY(),
                  FileContentProvider.KEY(),
                  JSONContentProvider.KEY(),
@@ -27,6 +32,8 @@ class ContentProviderFactory:
 
     @staticmethod
     def create(content_provider_type: str, extra_data: Any = None) -> ContentProvider:
+        """Crea un content provider del tipo indicado pasandole la informacion extra indicada"""
+
         content_provider_type = content_provider_type.lower()
         if content_provider_type == MemoryContentProvider.KEY():
             return MemoryContentProvider()
