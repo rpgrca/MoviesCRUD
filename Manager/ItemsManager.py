@@ -12,7 +12,7 @@ class ItemsManager(object):
         """Carga la lista de items desde el Content Provider"""
         pass
 
-    def __get_items(self):
+    def __get_items(self) -> List[Any]:
         """Retorna los items cargados en el Manager"""
         # TODO: Tal vez deberia llamar a self.load()
         return self.__items
