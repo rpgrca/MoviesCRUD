@@ -13,7 +13,7 @@ class SettingsEditor(object):
     CANCEL_BUTTON_CAPTION = "Cancelar"
 
     def configure(self, content_providers_manager: ContentProvidersManager, current_content_provider: ContentProvider):
-        """Carga el Manager de Content Providers"""
+        """Carga el manejador de Content Providers y crea los controles para configurar cada uno"""
         self.__content_providers_manager = content_providers_manager
 
         for content_provider in content_providers_manager.get_providers():
@@ -41,7 +41,7 @@ class SettingsEditor(object):
                     text.pack(side=LEFT, expand=NO, fill=X)
 
     def __on_exit_button_pressed(self):
-        """Callback llamado al querer salir de la ventana"""
+        """Callback llamada al querer salir de la ventana"""
         self.parent_window.destroy()
 
     def __on_save_button_pressed(self):
@@ -58,7 +58,7 @@ class SettingsEditor(object):
                     break
 
             if color != 'red':
-                if len(set(strings)) != len(self.__variables[key]['variable']): # Si algun campo esta duplicado
+                if len(set(strings)) != len(self.__variables[key]['variable']): # Si algun campo esta duplicado, error
                     color = 'red'
 
             self.__variables[key]['label']['fg'] = color
@@ -80,6 +80,8 @@ class SettingsEditor(object):
         self.parent_window.destroy()
 
     def __on_cancel_button_pressed(self):
+        """Callback llamada al presionar el boton Cancel: se descartan todos los cambios"""
+        # TODO: Si hay cambios deberia preguntar si desea perderlos
         self.parent_window.destroy()
 
     def __init__(self, parent: Tk = None, **configs):

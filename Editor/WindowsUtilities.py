@@ -1,6 +1,8 @@
 from tkinter import *
 
 class WindowsUtilities:
+    """Utilidades extras para las ventanas en Tkinter"""
+
     @staticmethod
     def center_window(win: Tk, window_width: int, window_height: int):
         """Centra la ventana dada en la pantalla"""

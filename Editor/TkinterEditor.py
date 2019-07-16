@@ -10,6 +10,7 @@ from Manager.GeneralManager import GeneralManager
 from Movie.Movie import Movie
 
 class TkinterEditor(object):
+    """Ventana principal de la aplicacion"""
     LABEL_OK_COLOR = "black"
     LABEL_ERROR_COLOR = "red"
     IDENTIFIER_SIZE = 5 # Cantidad de espacios entre el id y el nombre de la pelicula
@@ -92,6 +93,7 @@ class TkinterEditor(object):
                     self.edit_movie(movie)
     
     def __on_movies_listbox_right_click(self, event):
+        # TODO: El menu contextual puede quedarse colgado de vez en cuando
         """Callback llamada cuando se hace click con el boton derecho sobre la lista"""
         try:
             self.__movies_listbox_menu.tk_popup(event.x_root, event.y_root)
@@ -116,6 +118,7 @@ class TkinterEditor(object):
             self.parent_window.destroy()
 
     def __on_new_button_pressed(self):
+        # TODO: Deberia deshabilitarse cuando se presiona una vez? Si no preguntar antes de borrar el editor
         """Callback llamada al presionar el boton para crear una nueva pelicula"""
         if self.__general_manager.movies_manager:
             self.clear_editor()
@@ -156,6 +159,7 @@ class TkinterEditor(object):
                 self.__reload_movies()
 
     def __on_edit_movie(self):
+        """Callback llamada al editar una pelicula desde el menu contextual"""
         movie = self.__get_selected_movie()
         if movie:
             self.clear_editor()
@@ -320,6 +324,7 @@ class TkinterEditor(object):
         self.__main_title_label = Label(self.__editor_frame, text=TkinterEditor.MAIN_TITLE, borderwidth=7)
         self.__main_title_label.pack(side=TOP, expand=NO, fill=X)
 
+        # TODO: Se podria simplificar toda esta creacion
         self.__identifier_container = Frame(self.__main_window, borderwidth=7)
         self.__identifier_container.pack(side=TOP, expand=NO, fill=X)
         self.__identifier_label = Label(self.__identifier_container, text=TkinterEditor.IDENTIFIER_LABEL, borderwidth=7, width=15, anchor=W)
@@ -391,4 +396,3 @@ class TkinterEditor(object):
         self.__movies_listbox_menu.add_command(label=TkinterEditor.DELETE_CONTEXT_MENU, command=self.__on_not_implemented)
         self.__movies_listbox_menu.add_command(label=TkinterEditor.SELECT_ALL_CONTEXT_MENU, command=self.__on_not_implemented)
         self.__movies_listbox_menu.bind("<FocusOut>", lambda *args: self.__movies_listbox_menu.unpost())
-
