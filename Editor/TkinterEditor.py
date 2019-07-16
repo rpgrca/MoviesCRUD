@@ -73,7 +73,7 @@ class TkinterEditor(object):
         """Callback llamada al seleccionar la opcion Configuracion del menu"""
         popup = Toplevel()
         editor = SettingsEditor(popup)
-        editor.configure(self.__general_manager.content_providers_manager)
+        editor.configure(self.__general_manager.content_providers_manager, self.__general_manager.content_provider)
 
         popup.grab_set()
         popup.focus_set()
