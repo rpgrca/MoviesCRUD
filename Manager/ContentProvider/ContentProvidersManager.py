@@ -11,7 +11,11 @@ class ContentProvidersManager(ItemsManager):
         super(ContentProvidersManager, self).__init__(None)
 
     def create(self, content_provider: str, extra_data: str) -> ContentProvider:
-        return ContentProviderFactory.create(content_provider, extra_data)
+        result = [x for x in self.items if x.key == content_provider]
+        if result:
+            return result[0]
+        else:
+            return ContentProviderFactory.create(content_provider, extra_data)
 
     def load(self):
         """Carga cada uno de los content providers disponibles"""
