@@ -25,12 +25,14 @@ from Movie.Movie import Movie
 from Movie.MoviesFactory import MoviesFactory
 
 class CSVContentProvider(ContentProvider):
-    def __init__(self, filename: str):
+    def __init__(self, filenames: List[str]):
+        '''Constructor'''
         super(CSVContentProvider, self).__init__()
         self.name = "Archivo CSV"
-        self.extra_data = "movies.csv"
+        self.extra_data = [ "movies.csv", "categories.csv" ]
         self.key = CSVContentProvider.KEY()
-        self.__filename = filename if filename else self.extra_data
+        self.__movies_filename = filenames[0] if filenames and filenames[0] else self.extra_data[0]
+        self.__categories_filename = filenames[1] if filenames and filenames[1] else self.extra_data[1]
         self.__delimiter = '\t'
 
     @staticmethod
@@ -39,9 +41,25 @@ class CSVContentProvider(ContentProvider):
         return "csv"
 
     def load(self):
-        if self.__filename and not self.initialized:
-            if os.path.isfile(self.__filename):
-                with open(self.__filename, "r") as input_file:
+        '''Carga las categorias y las peliculas de los archivos de entrada'''
+        if not self.initialized and self.__movies_filename and self.__categories_filename:
+            if os.path.isfile(self.__categories_filename):
+                with open(self.__categories_filename, "r") as input_file:
+                    reader = csv.reader(input_file, delimiter=self.__delimiter)
+                    for line in reader:
+                        try:
+                            if line:
+                                identifier, category = line
+                                if identifier and identifier != 'id':
+                                    self.categories.append(category)
+                                else:
+                                    pass # El archivo csv tiene header
+                        except:
+                            # TODO: Agregar numero de linea
+                            raise ValueError("Formato invalido en archivo {}".format(self.__categories_filename))
+
+            if os.path.isfile(self.__movies_filename):
+                with open(self.__movies_filename, "r") as input_file:
                     reader = csv.reader(input_file, delimiter=self.__delimiter)
                     for line in reader:
                         try:
@@ -51,7 +69,7 @@ class CSVContentProvider(ContentProvider):
                                     movie = MoviesFactory.create1(int(identifier), title, description, releasedate, director, category)
                                     self.movies.append(movie)
 
-                                    if category not in self.categories:
+                                    if category not in self.categories: # Por si acaso
                                         self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header
@@ -63,8 +81,16 @@ class CSVContentProvider(ContentProvider):
         
 
     def save(self):
-        if self.__filename and self.initialized:
-            with open(self.__filename, "w", newline='') as output_file:
+        '''Graba los valores en los archivos CSV'''
+        if self.__categories_filename and self.__movies_filename and self.initialized:
+            categories = [ {'id': i + 1, 'category': x} for i, x in enumerate(self.categories)]
+
+            with open(self.__categories_filename, 'w', newline='') as output_file:
+                writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=[ 'id', 'category' ])
+                writer.writeheader()
+                writer.writerows(categories)
+
+            with open(self.__movies_filename, "w", newline='') as output_file:
                 writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=Movie.getHeaders())
                 writer.writeheader()
                 for movie in self.movies:
