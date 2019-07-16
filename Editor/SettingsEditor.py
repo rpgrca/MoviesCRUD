@@ -69,10 +69,13 @@ class SettingsEditor(object):
             for content_provider in self.__content_providers_manager.get_providers():
                 if content_provider.key in self.__variables:
                     if len(self.__variables[content_provider.key]['variable']) == 1:
-                        content_provider.extra_data = self.__variables[content_provider.key]['variable'][0].get()
+                        new_extra_data = self.__variables[content_provider.key]['variable'][0].get()
+                        if content_provider.extra_data != new_extra_data:
+                            content_provider.refresh(new_extra_data)
                     else:
-                        content_provider.extra_data = list(map(lambda x : x.get(), self.__variables[content_provider.key]['variable']))
-                        print(content_provider.extra_data)
+                        new_extra_data = list(map(lambda x : x.get(), self.__variables[content_provider.key]['variable']))
+                        if content_provider.extra_data != new_extra_data:
+                            content_provider.refresh(new_extra_data)
 
         self.parent_window.destroy()
 
