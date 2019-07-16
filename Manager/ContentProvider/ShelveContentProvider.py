@@ -5,6 +5,8 @@ import shelve
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class ShelveContentProvider(ContentProvider):
+    """Manejador de una base de datos Shelve"""
+
     def __init__(self, filename: str):
         """Constructor"""
         super(ShelveContentProvider, self).__init__()

@@ -5,6 +5,8 @@ from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.Movie import Movie
 
 class MemoryContentProvider(ContentProvider):
+    """Manejador de datos en memoria, a diferencia de EmptyContentProvider ofrece algunos datos por defecto"""
+
     def __init__(self):
         """Constructor"""
         super(MemoryContentProvider, self).__init__()

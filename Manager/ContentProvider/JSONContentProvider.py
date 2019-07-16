@@ -1,4 +1,4 @@
-"""ShelveContentProvider.py"""
+"""JSONContentProvider.py"""
 
 from typing import List, Any
 import os
@@ -8,6 +8,8 @@ from Movie.MoviesFactory import MoviesFactory
 from Movie.Movie import Movie
 
 class JSONContentProvider(ContentProvider):
+    """Manejador de archivos en formato JSON"""
+
     def __init__(self, filename: str):
         """Constructor"""
         super(JSONContentProvider, self).__init__()
@@ -36,9 +38,8 @@ class JSONContentProvider(ContentProvider):
     def save(self):
         """Graba las listas de peliculas y categorias en un archivo JSON"""
         if self.initialized:
-            # Esto sirve solo para clases simples como las mias
             dictionary = {}
-            dictionary["movies"] = [x.toDictionary() for x in self.movies]
+            dictionary["movies"] = [x.toDictionary() for x in self.movies] # Esto sirve solo para clases simples como las mias
             dictionary["categories"] = self.categories
             self.__save_json(self.__filename, dictionary)
             self.initialized = False

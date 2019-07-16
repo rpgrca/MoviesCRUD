@@ -4,7 +4,10 @@ from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class FileContentProvider(ContentProvider):
+    """Manejador de archivos de texto con un formato determinado"""
+
     def __init__(self, filename: str):
+        """Constructor"""
         super(FileContentProvider, self).__init__()
         self.name = "Archivo de texto"
         self.extra_data = "movies.txt"
@@ -17,9 +20,11 @@ class FileContentProvider(ContentProvider):
         return "file"
 
     def load(self):
-        # TODO: Cargar items del archivo
+        """Carga las categorias y las peliculas del archivo de entrada"""
+        # TODO: Cargar items del archivo usando RegEx
         pass
 
     def save(self):
+        """Graba las listas de peliculas y categorias en un de texto"""
         # TODO: Grabar items del archivo
         pass

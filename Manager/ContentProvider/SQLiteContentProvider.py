@@ -6,6 +6,8 @@ from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.MoviesFactory import MoviesFactory
 
 class SQLiteContentProvider(ContentProvider):
+    """Manejador de una base de datos SQLite"""
+
     MOVIES_TABLE = "movies"
     CATEGORIES_TABLE = "categories"
 
@@ -24,6 +26,8 @@ class SQLiteContentProvider(ContentProvider):
         return "sqlite"
 
     def load(self):
+        """Carga las categorias y las peliculas de la base de datos de SQLite"""
+
         if not self.__connection:
             categories = {}
             self.__connection = sqlite3.connect(self.__filename)
@@ -45,6 +49,7 @@ class SQLiteContentProvider(ContentProvider):
             cursor.close()
 
     def save(self):
+        """Graba las listas de peliculas y categorias en una base de datos de SQLite"""
         if self.__connection:
             cursor = self.__connection.cursor()
             try:

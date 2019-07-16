@@ -1,20 +1,3 @@
-#    def _track_rooms_load_previous_day(self, filename):
-#        """
-#        Auxiliar function, load information from previous day.
-#        Currently unused.
-#        """
-#        _ = timezone('Asia/Tokyo')
-#        last = {}
-#        with open(filename, "r") as input_file:
-#            reader = csv.reader(input_file, delimiter='\t')
-#            for room_id, _, date, _, followers, viewers, points, diff in reader:
-#                if room_id not in last:
-#                    last[room_id] = {
-#                        "points": points, "date": date, "viewers": viewers,
-#                        "followers": followers, "diff": diff
-#                    }
-#
-
 """FileContentProvider.py"""
 
 from typing import List, Any
@@ -25,8 +8,10 @@ from Movie.Movie import Movie
 from Movie.MoviesFactory import MoviesFactory
 
 class CSVContentProvider(ContentProvider):
+    """Content Provider para archivos en formato CSV (en verdad, .tab)"""
     def __init__(self, filenames: List[str]):
-        """Constructor"""
+        """Constructor, recibe una lista con el nombre del archivo de peliculas y el de categorias"""
+
         super(CSVContentProvider, self).__init__()
         self.name = "Archivo CSV"
         self.extra_data = [ "movies.csv", "categories.csv" ]
@@ -57,7 +42,7 @@ class CSVContentProvider(ContentProvider):
                                 if identifier and identifier != 'id':
                                     self.categories.append(category)
                                 else:
-                                    pass # El archivo csv tiene header
+                                    pass # El archivo csv tiene header, no procesarlo
                         except:
                             # TODO: Agregar numero de linea
                             raise ValueError("Formato invalido en archivo {}".format(self.__categories_filename))
@@ -76,16 +61,15 @@ class CSVContentProvider(ContentProvider):
                                     if category not in self.categories: # Por si acaso
                                         self.categories.append(category)
                                 else:
-                                    pass # El archivo csv tiene header
+                                    pass # El archivo csv tiene header, no procesarlo
                         except:
                             # TODO: Agregar numero de linea
                             raise ValueError("Formato invalido en archivo CSV")
 
             self.initialized = True
-        
 
     def save(self):
-        '''Graba los valores en los archivos CSV'''
+        """Graba los valores en los archivos CSV"""
         if self.__categories_filename and self.__movies_filename and self.initialized:
             categories = [ {'id': i + 1, 'category': x} for i, x in enumerate(self.categories)]
 
