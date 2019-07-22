@@ -1,0 +1,33 @@
+{
+    "categories": [
+        "Anime",
+        "Adventure",
+        "Fantasy"
+    ],
+    "movies": [
+        {
+            "category": "Anime",
+            "description": "Japanese mecha anime television series",
+            "director": "Hideaki Anno",
+            "identifier": 1,
+            "releasedate": "1995-10-04",
+            "title": "Neon Genesis Evangelion"
+        },
+        {
+            "category": "Adventure",
+            "description": "Japanese adventure, dark fantasy anime series",
+            "director": "Seiji Mizushima",
+            "identifier": 2,
+            "releasedate": "2003-10-04",
+            "title": "Fullmetal Alchemist"
+        },
+        {
+            "category": "Fantasy",
+            "description": "Anime adaptation of the manga with 14 episodes",
+            "director": "Tatsuya Ishihara",
+            "identifier": 3,
+            "releasedate": "2006-04-02",
+            "title": "The Melancholy of Haruhi Suzumiya"
+        }
+    ]
+}
