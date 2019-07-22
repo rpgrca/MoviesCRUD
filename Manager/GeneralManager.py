@@ -8,6 +8,7 @@ from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class GeneralManager(ItemsManager):
     """Este manejador contiene al resto de los manejadores, ademas de una referencia al content provider activo"""
+
     def __init__(self):
         """Constructor"""
         self.__content_providers_manager = ContentProvidersManager()
@@ -18,18 +19,22 @@ class GeneralManager(ItemsManager):
 
     @property
     def movies_manager(self) -> MoviesManager:
+        """Retorna el manejador de peliculas actual"""
         return self.__movies_manager
 
     @property
     def categories_manager(self) -> CategoriesManager:
+        """Retorna el manejador de categorias actual"""
         return self.__categories_manager
 
     @property
     def content_providers_manager(self) -> ContentProvidersManager:
+        """Retorna el manejador de Content Providers actual"""
         return self.__content_providers_manager
 
     @property
     def content_provider(self) -> ContentProvider:
+        """Retorna el Content Provider que esta siendo actualmente usado"""
         return self.__current_content_provider
 
     def select_content_provider(self, content_provider: str, extra_data: str = None):
