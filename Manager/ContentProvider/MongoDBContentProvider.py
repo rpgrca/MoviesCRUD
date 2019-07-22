@@ -1,7 +1,11 @@
 """MongoDBContentProvider.py"""
 
 from typing import List, Any
+import pymongo # pip3 install pymongo
+from pymongo import MongoClient
 from Manager.ContentProvider.ContentProvider import ContentProvider
+from Movie.MoviesFactory import MoviesFactory
+from Movie.Movie import Movie
 
 class MongoDBContentProvider(ContentProvider):
     """Manejador de una base de datos MongoDB"""
@@ -10,9 +14,10 @@ class MongoDBContentProvider(ContentProvider):
         """Constructor"""
         super(MongoDBContentProvider, self).__init__()
         self.name = "Base MongoDB"
-        self.extra_data = "mongodb://127.0.0.1:8889/moviesdb"
+        self.extra_data = "mongodb://127.0.0.1:27017/moviesdb"
         self.key = MongoDBContentProvider.KEY()
         self.__connection_string = connection_string if connection_string else self.extra_data
+        self.__client = None
 
     @staticmethod
     def KEY() -> str:
@@ -21,10 +26,29 @@ class MongoDBContentProvider(ContentProvider):
 
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de MongoDB"""
-        # TODO: Cargar items de la base de datos
-        pass
+        if not self.initialized:
+            self.__client = MongoClient(self.__connection_string)
+            db = self.__client['MoviesCRUD']
+            for movie in db.movies.find():
+                self.movies.append(MoviesFactory.create1(movie['identifier'], movie['title'], movie['description'], movie['releasedate'], movie['director'], movie['category']))
+
+            for category in db.categories.find():
+                self.categories.append(category['category'])
+
+            self.initialized = True
 
     def save(self):
         """Graba las listas de peliculas y categorias en la base de datos de MongoDB"""
-        # TODO: Grabar items de la base de datos
-        pass
+        if self.initialized:
+            db = self.__client['MoviesCRUD']
+            db.movies.delete_many({}) # TODO: Armar una lista de elementos borrados para no borrar toda la base
+
+            for movie in self.movies:
+                if db.movies.find_one_and_update({'identifier': movie.identifier}, {'$set': movie.toDictionary()}) is None:
+                    db.movies.insert(movie.toDictionary())
+
+            # Las categorias nunca se borran
+            for category in self.categories:
+                result = db.categories.find_one({'category': category})
+                if result is None:
+                    db.categories.insert({'category': category})
