@@ -29,6 +29,7 @@ class TkinterEditor(object):
     DIRECTOR_LABEL = "Director"
     CATEGORY_LABEL = "Categoria"
     ADD_BUTTON_CAPTION = "Agregar"
+    CANCEL_BUTTON_CAPTION = "Cancelar"
     REMOVE_BUTTON_CAPTION = "Borrar"
     SAVE_BUTTON_CAPTION = "Grabar"
     EXIT_BUTTON_CAPTION = "Salir"
@@ -88,8 +89,7 @@ class TkinterEditor(object):
                 self.__enable_delete_button()
                 movie = self.__get_selected_movie()
                 if movie:
-                    self.__disable_save_button()
-                    self.disable_editor()
+                    self.__on_cancel_button_pressed()
                     self.edit_movie(movie)
     
     def __on_movies_listbox_right_click(self, event):
@@ -126,6 +126,16 @@ class TkinterEditor(object):
             self.__identifier.set(self.__general_manager.movies_manager.get_next_identifier())
             self.__enable_save_button()
             self.__disable_delete_button()
+            self.__new_button.configure(text=TkinterEditor.CANCEL_BUTTON_CAPTION, command=self.__on_cancel_button_pressed)
+
+    def __on_cancel_button_pressed(self):
+        """Callback llamada al presionar el boton para cancelar"""
+        if self.__general_manager.movies_manager:
+            self.clear_editor() # TODO: Tal vez deberia llamar a edit_movie
+            self.disable_editor()
+            self.__disable_save_button()
+            self.__enable_delete_button()
+            self.__new_button.configure(text=TkinterEditor.ADD_BUTTON_CAPTION, command=self.__on_new_button_pressed)
 
     def __on_save_button_pressed(self):
         """Callback llamada al presionar el boton de grabar"""
@@ -167,6 +177,7 @@ class TkinterEditor(object):
             self.edit_movie(movie)
             self.__enable_save_button()
             self.__disable_delete_button()
+            self.__new_button.configure(text=TkinterEditor.CANCEL_BUTTON_CAPTION, command=self.__on_cancel_button_pressed)
 
     def __on_remove_movie(self):
         """Callback llamada cuando se presiona el boton de borrar una pelicula"""
