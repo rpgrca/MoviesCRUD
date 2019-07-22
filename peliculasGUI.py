@@ -2,10 +2,6 @@
 
 from tkinter import Tk
 from Editor.TkinterEditor import TkinterEditor
-from Manager.Movies.MoviesManager import MoviesManager
-from Manager.Categories.CategoriesManager import CategoriesManager
-from Manager.ContentProvider.ContentProviderFactory import ContentProviderFactory
-from Manager.ContentProvider.ContentProvidersManager import ContentProvidersManager
 from Manager.GeneralManager import GeneralManager
 
 if __name__ == '__main__':
