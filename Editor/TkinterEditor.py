@@ -168,7 +168,7 @@ class TkinterEditor(object):
             self.__enable_save_button()
             self.__disable_delete_button()
 
-    def __on_remove_button_pressed(self):
+    def __on_remove_movie(self):
         """Callback llamada cuando se presiona el boton de borrar una pelicula"""
         if self.__general_manager.movies_manager and self.__movies_listbox.curselection():
             movie = self.__get_selected_movie()
@@ -384,7 +384,7 @@ class TkinterEditor(object):
         self.__save_button = Button(self.__menu_frame, text=TkinterEditor.SAVE_BUTTON_CAPTION, state=DISABLED, command=self.__on_save_button_pressed)
         self.__save_button.pack(side=LEFT)
 
-        self.__remove_button = Button(self.__menu_frame, text=TkinterEditor.REMOVE_BUTTON_CAPTION, state=DISABLED, command=self.__on_remove_button_pressed)
+        self.__remove_button = Button(self.__menu_frame, text=TkinterEditor.REMOVE_BUTTON_CAPTION, state=DISABLED, command=self.__on_remove_movie)
         self.__remove_button.pack(side=LEFT)
 
         self.__exit_button = Button(self.__menu_frame, text=TkinterEditor.EXIT_BUTTON_CAPTION, command=self.__on_exit_button_pressed)
@@ -393,6 +393,6 @@ class TkinterEditor(object):
         # Menu contextual de la lista de peliculas
         self.__movies_listbox_menu = Menu(self.__movies_listbox, tearoff=False)
         self.__movies_listbox_menu.add_command(label=TkinterEditor.EDIT_CONTEXT_MENU, command=self.__on_edit_movie)
-        self.__movies_listbox_menu.add_command(label=TkinterEditor.DELETE_CONTEXT_MENU, command=self.__on_not_implemented)
+        self.__movies_listbox_menu.add_command(label=TkinterEditor.DELETE_CONTEXT_MENU, command=self.__on_remove_movie)
         self.__movies_listbox_menu.add_command(label=TkinterEditor.SELECT_ALL_CONTEXT_MENU, command=self.__on_not_implemented)
         self.__movies_listbox_menu.bind("<FocusOut>", lambda *args: self.__movies_listbox_menu.unpost())
