@@ -6,6 +6,7 @@ from Manager.ContentProvider import ContentProvider
 from Editor.WindowsUtilities import WindowsUtilities
 
 class SettingsEditor(object):
+    """Interface grafica del editor de configuracion"""
     WINDOW_TITLE = "Editor de Configuracion"
     WINDOW_WIDTH = 500
     WINDOW_HEIGHT = 500
