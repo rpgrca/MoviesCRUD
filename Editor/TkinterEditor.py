@@ -103,8 +103,17 @@ class TkinterEditor(object):
     def __on_cp_menu_item_selected(self):
         """Callback llamada al seleccionar un content provider"""
         if messagebox.askokcancel(TkinterEditor.QUESTION_RELOAD_TITLE, TkinterEditor.QUESTION_RELOAD_MESSAGE):
-            self.__previous_content_provider = self.__selected_content_provider.get()
-            self.__switch_content_provider(self.__previous_content_provider)
+            new_connection = self.__selected_content_provider.get()
+            old_connection = self.__previous_content_provider
+
+            try:
+                self.__switch_content_provider(new_connection)
+                self.__previous_content_provider = new_connection
+            except Exception as err:
+                messagebox.showerror(title="Error", message=err)
+                self.__general_manager.select_content_provider(old_connection)
+                self.__previous_content_provider = old_connection
+                self.__selected_content_provider.set(self.__previous_content_provider)
         else:
             self.__selected_content_provider.set(self.__previous_content_provider)
 
