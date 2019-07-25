@@ -28,7 +28,7 @@ class SQLiteContentProvider(ContentProvider):
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de SQLite"""
 
-        if not self.__connection:
+        if not self.__connection and not self.initialized:
             categories = {}
             self.__connection = sqlite3.connect(self.__filename)
             self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
@@ -46,6 +46,7 @@ class SQLiteContentProvider(ContentProvider):
                 self.movies.append(MoviesFactory.create1(int(row[0]), row[1], row[2], row[3], row[4], row[5]))
 
             cursor.close()
+            self.initialized = True
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de SQLite"""

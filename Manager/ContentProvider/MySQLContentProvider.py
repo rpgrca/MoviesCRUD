@@ -28,7 +28,7 @@ class MySQLContentProvider(ContentProvider):
 
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de MySQL"""
-        if not self.__connection:
+        if not self.__connection and not self.initialized:
             categories = {}
             try:
                 self.__connection = mysql.connector.connect(user=self.__user, password=self.__password, host=self.__host, database=self.__database)
@@ -61,6 +61,7 @@ class MySQLContentProvider(ContentProvider):
                 self.movies.append(MoviesFactory.create1(int(identifier), title, description, releasedate, director, category))
 
             cursor.close()
+            self.initialized = True
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de MySQL"""
