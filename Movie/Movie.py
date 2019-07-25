@@ -7,14 +7,19 @@ class Movie(object):
         """Constructor"""
         # El diccionario tiene maxima prioridad
         if kwargs and kwargs["dictionary"]:
-            identifier, title, description, releasedate, director, category = kwargs['dictionary']
-
-        self.identifier = identifier
-        self.title = title
-        self.description = description
-        self.releasedate = releasedate
-        self.director = director
-        self.category = category
+            self.identifier = kwargs['dictionary']['identifier']
+            self.title = kwargs['dictionary']['title']
+            self.description = kwargs['dictionary']['description']
+            self.releasedate = kwargs['dictionary']['releasedate']
+            self.director = kwargs['dictionary']['director']
+            self.category = kwargs['dictionary']['category']
+        else:
+            self.identifier = identifier
+            self.title = title
+            self.description = description
+            self.releasedate = releasedate
+            self.director = director
+            self.category = category
 
     @staticmethod
     def getHeaders():
