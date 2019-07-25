@@ -27,15 +27,18 @@ class MongoDBContentProvider(ContentProvider):
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de MongoDB"""
         if not self.initialized:
-            self.__client = MongoClient(self.__connection_string)
-            db = self.__client['MoviesCRUD']
-            for movie in db.movies.find():
-                self.movies.append(MoviesFactory.create1(movie['identifier'], movie['title'], movie['description'], movie['releasedate'], movie['director'], movie['category']))
+            self.__client = MongoClient(self.__connection_string, serverSelectionTimeoutMS=5000)
+            if self.__client:
+                db = self.__client['MoviesCRUD']
+                for movie in db.movies.find():
+                    self.movies.append(MoviesFactory.create1(movie['identifier'], movie['title'], movie['description'], movie['releasedate'], movie['director'], movie['category']))
 
-            for category in db.categories.find():
-                self.categories.append(category['category'])
+                for category in db.categories.find():
+                    self.categories.append(category['category'])
 
-            self.initialized = True
+                self.initialized = True
+            else:
+                raise ValueError("No se pudo conectar a la base de datos")
 
     def save(self):
         """Graba las listas de peliculas y categorias en la base de datos de MongoDB"""
