@@ -163,9 +163,7 @@ class TkinterEditor(object):
                     movie = self.__general_manager.movies_manager.create(self.__title.get(), self.__description.get(), self.__releasedate.get(), self.__director.get(), category)
                     self.__general_manager.movies_manager.movies.append(movie)
 
-                self.clear_editor()
-                self.__disable_save_button()
-                self.disable_editor()
+                self.__on_cancel_button_pressed()
                 self.__reload_movies()
 
     def __on_edit_movie(self):
