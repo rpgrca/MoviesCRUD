@@ -17,8 +17,13 @@ class SQLiteContentProvider(ContentProvider):
         self.name = "Base SQLite3"
         self.extra_data = "movies.sqlite3"
         self.key = SQLiteContentProvider.KEY()
-        self.__filename = filename if filename else self.extra_data
+        self.refresh(filename)
         self.__connection = None
+
+    def refresh(self, filename: str):
+        """Carga el nombre del archivo"""
+        self.__filename = filename if filename else self.extra_data
+        self.extra_data = self.__filename
 
     @staticmethod
     def KEY() -> str:
@@ -50,7 +55,7 @@ class SQLiteContentProvider(ContentProvider):
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de SQLite"""
-        if self.__connection:
+        if self.initialized:
             cursor = self.__connection.cursor()
             try:
                 cursor.execute("DELETE FROM Movies") # TODO: En un mundo ideal no se borra toda la lista
@@ -72,3 +77,8 @@ class SQLiteContentProvider(ContentProvider):
                 raise ValueError("El ID ya existe en la base de datos")
 
             self.__connection.close()
+            self.__connection = None
+
+            self.initialized = False
+            self.movies = []
+            self.categories = []

@@ -85,3 +85,5 @@ class CSVContentProvider(ContentProvider):
                     writer.writerow(movie.toDictionary())
 
             self.initialized = False
+            self.movies = []
+            self.categories = []

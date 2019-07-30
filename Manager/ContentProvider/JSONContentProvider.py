@@ -16,7 +16,12 @@ class JSONContentProvider(ContentProvider):
         self.name = "Archivo JSON"
         self.extra_data = "movies.json"
         self.key = JSONContentProvider.KEY()
+        self.refresh(filename)
+
+    def refresh(self, filename: str):
+        """Carga el nombre del archivo"""
         self.__filename = filename if filename else self.extra_data
+        self.extra_data = self.__filename
 
     @staticmethod
     def KEY() -> str:
@@ -42,6 +47,7 @@ class JSONContentProvider(ContentProvider):
             dictionary["movies"] = [x.toDictionary() for x in self.movies] # Esto sirve solo para clases simples como las mias
             dictionary["categories"] = self.categories
             self.__save_json(self.__filename, dictionary)
+
             self.initialized = False
             self.categories = []
             self.movies = []

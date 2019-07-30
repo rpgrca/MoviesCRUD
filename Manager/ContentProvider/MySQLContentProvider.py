@@ -15,11 +15,16 @@ class MySQLContentProvider(ContentProvider):
         self.name = "Base MySQL"
         self.extra_data = ["localhost", "root", "1234", "moviesdb"]
         self.key = MySQLContentProvider.KEY()
+        self.refresh(connection_string)
+        self.__connection = None
+
+    def refresh(self, connection_string: List[str]):
+        """Carga el string de conexion a base de datos"""
         self.__host = connection_string[0] if connection_string and connection_string[0] else self.extra_data[0]
         self.__user = connection_string[1] if connection_string and connection_string[1] else self.extra_data[1]
         self.__password = connection_string[2] if connection_string and connection_string[2] else self.extra_data[2]
         self.__database = connection_string[3] if connection_string and connection_string[3] else self.extra_data[3]
-        self.__connection = None
+        self.extra_data = [self.__host, self.__user, self.__password, self.__database]
 
     @staticmethod
     def KEY() -> str:
@@ -65,7 +70,7 @@ class MySQLContentProvider(ContentProvider):
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de MySQL"""
-        if self.__connection:
+        if self.initialized:
             cursor = self.__connection.cursor()
             cursor.execute("DELETE FROM Movies") # TODO: En un mundo ideal, se aparean las listas y no se borra la tabla
 
@@ -83,3 +88,8 @@ class MySQLContentProvider(ContentProvider):
             self.__connection.commit()
             self.__connection.close()
             cursor.close()
+            self.__connection = None
+
+            self.initialized = False
+            self.categories = []
+            self.movies = []

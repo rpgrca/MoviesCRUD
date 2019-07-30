@@ -16,8 +16,13 @@ class MongoDBContentProvider(ContentProvider):
         self.name = "Base MongoDB"
         self.extra_data = "mongodb://127.0.0.1:27017/moviesdb"
         self.key = MongoDBContentProvider.KEY()
-        self.__connection_string = connection_string if connection_string else self.extra_data
+        self.refresh(connection_string)
         self.__client = None
+
+    def refresh(self, connection_string: str):
+        """Carga el string de conexion a base de datos"""
+        self.__connection_string = connection_string if connection_string else self.extra_data
+        self.extra_data = self.__connection_string
 
     @staticmethod
     def KEY() -> str:
@@ -55,3 +60,9 @@ class MongoDBContentProvider(ContentProvider):
                 result = db.categories.find_one({'category': category})
                 if result is None:
                     db.categories.insert({'category': category})
+
+            self.__client = None
+
+            self.initialized = False
+            self.movies = []
+            self.categories = []

@@ -16,3 +16,7 @@ class EmptyContentProvider(ContentProvider):
     def KEY() -> str:
         """Retorna la llave de este content provider"""
         return "empty"
+
+    def refresh(self):
+        """Carga los nombres de los archivos"""
+        pass

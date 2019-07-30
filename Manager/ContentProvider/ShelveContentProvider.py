@@ -14,7 +14,12 @@ class ShelveContentProvider(ContentProvider):
         self.name = "Base Shelve"
         self.extra_data = "movies.shelve"
         self.key = ShelveContentProvider.KEY()
+        self.refresh(filename)
+
+    def refresh(self, filename: str):
+        """Carga el nombre del archivo"""
         self.__filename = filename if filename else self.extra_data
+        self.extra_data = self.__filename
 
     @staticmethod
     def KEY() -> str:
@@ -44,7 +49,8 @@ class ShelveContentProvider(ContentProvider):
             self.__shelf["movies"] = self.movies
             self.__shelf["categories"] = self.categories
             self.__shelf.close()
-            self.initialized = False
             self.__shelf = None
+
+            self.initialized = False
             self.categories = []
             self.movies = []

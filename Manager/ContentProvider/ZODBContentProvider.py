@@ -16,9 +16,14 @@ class ZODBContentProvider(ContentProvider):
         self.name = "Base ZODB"
         self.extra_data = "movies.fs"
         self.key = ZODBContentProvider.KEY()
-        self.__filename = filename if filename else self.extra_data
+        self.refresh(filename)
         self.__connection = None
         self.__database = None
+
+    def refresh(self, filename: str):
+        """Carga el nombre del archivo"""
+        self.__filename = filename if filename else self.extra_data
+        self.extra_data = self.__filename
 
     @staticmethod
     def KEY() -> str:
@@ -58,5 +63,10 @@ class ZODBContentProvider(ContentProvider):
             transaction.commit()
 
             self.__connection.close()
+            self.__connection = None
             self.__database.close()
+            self.__database = None
+
             self.initialized = False
+            self.movies = []
+            self.categories = []

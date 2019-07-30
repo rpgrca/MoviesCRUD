@@ -76,8 +76,10 @@ class ContentProvider(object):
 
     def load(self):
         """Carga los valores desde el origen a las listas internas"""
-        pass
+        self.__movies = []
+        self.__categories = []
 
     def save(self):
         """Graba los valores al origen"""
-        pass
+        self.__movies = []
+        self.__categories = []
