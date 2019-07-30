@@ -53,6 +53,8 @@ class TkinterEditor(object):
 
     def __switch_content_provider(self, content_provider: str):
         """Cambia el content provider a otro"""
+        # TODO: Si falla cambiar la conexion, al volver ya esta cerrada la vieja
+        self.__general_manager.save()
         self.__general_manager.select_content_provider(content_provider)
         self.__general_manager.load()
         self.__reload_movies()
