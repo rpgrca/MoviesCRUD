@@ -1,6 +1,8 @@
 """Movie.py"""
 
-class Movie(object):
+import persistent
+
+class Movie(persistent.Persistent):
     """Clase que representa a una pelicula en el programa"""
 
     def __init__(self, identifier: int = -1, title: str = "", description: str = "", releasedate: str = "", director: str = "", category: str = "", **kwargs):
