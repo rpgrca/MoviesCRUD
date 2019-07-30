@@ -81,4 +81,5 @@ class MySQLContentProvider(ContentProvider):
                 cursor.execute('INSERT INTO Movies (identifier, title, description, releasedate, director, category) VALUES (%s, %s, %s, %s, %s, %s)', (movie.identifier, movie.title, movie.description, movie.releasedate, movie.director, category_id))
 
             self.__connection.commit()
+            self.__connection.close()
             cursor.close()
