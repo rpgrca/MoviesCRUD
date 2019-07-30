@@ -1,18 +1,24 @@
 """ZODBContentProvider.py"""
 
+import ZODB
+import ZODB.FileStorage
+import transaction
+import Movie.Movie
 from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class ZODBContentProvider(ContentProvider):
     """Manejador de una base de datos ZODB"""
 
-    def __init__(self, connection_string: str):
+    def __init__(self, filename: str):
         """Constructor"""
         super(ZODBContentProvider, self).__init__()
         self.name = "Base ZODB"
-        self.extra_data = "movies.zodb"
+        self.extra_data = "movies.fs"
         self.key = ZODBContentProvider.KEY()
-        self.__connection_string = connection_string if connection_string else self.extra_data
+        self.__filename = filename if filename else self.extra_data
+        self.__connection = None
+        self.__database = None
 
     @staticmethod
     def KEY() -> str:
@@ -21,10 +27,36 @@ class ZODBContentProvider(ContentProvider):
 
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de ZODB"""
-        # TODO: Cargar items de la base de datos
-        pass
+        if not self.initialized:
+            self.__database = ZODB.DB(self.__filename)
+            self.__connection = self.__database.open()
+
+            root = self.__connection.root()
+            if root and hasattr(root, 'keys'):
+                for key in sorted(root.keys()):
+                    if key.startswith('movies'):
+                        self.movies.append(root[key])
+                    elif key == 'categories':
+                        self.categories = root[key]
+
+            self.initialized = True
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de ZODB"""
-        # TODO: Grabar items de la base de datos
-        pass
+        if self.initialized:
+            root = self.__connection.root()
+            # TODO: Deberia aparear los datos para no borrar siempre todos los datos
+            if root and hasattr(root, 'keys'):
+                keys = list(root.keys())
+                for key in keys:
+                    del root[key]
+
+            for movie in self.movies:
+                root['movies_{0}'.format(movie.identifier)] = movie
+
+            root['categories'] = self.categories
+            transaction.commit()
+
+            self.__connection.close()
+            self.__database.close()
+            self.initialized = False
