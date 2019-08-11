@@ -1,4 +1,5 @@
-from typing import List, Any
+"""ContentProvider.py"""
+from typing import List
 from Movie.Movie import Movie
 
 class ContentProvider(object):
