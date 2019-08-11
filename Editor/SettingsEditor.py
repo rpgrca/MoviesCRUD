@@ -1,6 +1,8 @@
 """SettingsEditor.py"""
 
-from tkinter import *
+#from tkinter import *
+from tkinter import Label, Frame, Entry, StringVar, Tk, Button
+from tkinter import TOP, YES, NO, X, W, LEFT, BOTH, CENTER
 from Manager.ContentProvider.ContentProvidersManager import ContentProvidersManager
 from Manager.ContentProvider import ContentProvider
 from Editor.WindowsUtilities import WindowsUtilities
@@ -52,14 +54,16 @@ class SettingsEditor(object):
             color = 'black'
             strings = []
 
-            for variable in self.__variables[key]['variable']: # Si algun campo esta vacio, error
+            for variable in self.__variables[key]['variable']:
+                # Si algun campo esta vacio, error
                 strings.append(variable.get())
                 if not variable.get():
                     color = 'red'
                     break
 
             if color != 'red':
-                if len(set(strings)) != len(self.__variables[key]['variable']): # Si algun campo esta duplicado, error
+                if len(set(strings)) != len(self.__variables[key]['variable']):
+                    # Si algun campo esta duplicado, error
                     color = 'red'
 
             self.__variables[key]['label']['fg'] = color
@@ -105,10 +109,14 @@ class SettingsEditor(object):
         self.__button_frame = Frame(self.__main_window, padx=10)
         self.__button_frame.pack(expand=YES, fill=BOTH)
 
-        self.__button_save = Button(self.__button_frame, text=SettingsEditor.SAVE_BUTTON_CAPTION, command=self.__on_save_button_pressed, padx=5)
+        self.__button_save = Button(self.__button_frame,
+                                    text=SettingsEditor.SAVE_BUTTON_CAPTION,
+                                    command=self.__on_save_button_pressed, padx=5)
         self.__button_save.place(relx=0.43, rely=0.5, anchor=CENTER)
 
-        self.__button_cancel = Button(self.__button_frame, text=SettingsEditor.CANCEL_BUTTON_CAPTION, command=self.__on_cancel_button_pressed, padx=5)
+        self.__button_cancel = Button(self.__button_frame,
+                                      text=SettingsEditor.CANCEL_BUTTON_CAPTION,
+                                      command=self.__on_cancel_button_pressed, padx=5)
         self.__button_cancel.place(relx=0.57, rely=0.5, anchor=CENTER)
 
         WindowsUtilities.center_window(self.parent_window, SettingsEditor.WINDOW_WIDTH, SettingsEditor.WINDOW_HEIGHT)
