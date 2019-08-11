@@ -20,7 +20,7 @@ class ContentProviderFactory:
     def get_providers() -> List[str]:
         """Retorna las llaves de todos los Content Providers disponibles"""
         return [ MemoryContentProvider.KEY(),
-                 FileContentProvider.KEY(),
+                 #FileContentProvider.KEY(),
                  JSONContentProvider.KEY(),
                  CSVContentProvider.KEY(),
                  EmptyContentProvider.KEY(),
