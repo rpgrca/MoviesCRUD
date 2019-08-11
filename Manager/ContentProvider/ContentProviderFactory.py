@@ -19,16 +19,16 @@ class ContentProviderFactory:
     @staticmethod
     def get_providers() -> List[str]:
         """Retorna las llaves de todos los Content Providers disponibles"""
-        return [ MemoryContentProvider.KEY(),
-                 #FileContentProvider.KEY(),
-                 JSONContentProvider.KEY(),
-                 CSVContentProvider.KEY(),
-                 EmptyContentProvider.KEY(),
-                 ShelveContentProvider.KEY(),
-                 MySQLContentProvider.KEY(),
-                 ZODBContentProvider.KEY(),
-                 MongoDBContentProvider.KEY(),
-                 SQLiteContentProvider.KEY() ]
+        return [MemoryContentProvider.KEY(),
+                #FileContentProvider.KEY(),
+                JSONContentProvider.KEY(),
+                CSVContentProvider.KEY(),
+                EmptyContentProvider.KEY(),
+                ShelveContentProvider.KEY(),
+                MySQLContentProvider.KEY(),
+                ZODBContentProvider.KEY(),
+                MongoDBContentProvider.KEY(),
+                SQLiteContentProvider.KEY()]
 
     @staticmethod
     def create(content_provider_type: str, extra_data: Any = None) -> ContentProvider:
