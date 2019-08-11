@@ -1,6 +1,5 @@
 """MemoryContentProvider.py"""
 
-from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.Movie import Movie
 

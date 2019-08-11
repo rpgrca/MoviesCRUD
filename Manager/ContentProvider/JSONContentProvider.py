@@ -1,11 +1,9 @@
 """JSONContentProvider.py"""
 
-from typing import List, Any
 import os
 import json
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.MoviesFactory import MoviesFactory
-from Movie.Movie import Movie
 
 class JSONContentProvider(ContentProvider):
     """Manejador de archivos en formato JSON"""

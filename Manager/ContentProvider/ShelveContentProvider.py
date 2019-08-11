@@ -38,7 +38,7 @@ class ShelveContentProvider(ContentProvider):
     def load(self):
         """Carga los datos de las peliculas y categorias del shelf"""
         if not self.initialized:
-            self.__shelf =  shelve.open(self.__filename)
+            self.__shelf = shelve.open(self.__filename)
             self.movies = self.__get_config("movies")
             self.categories = self.__get_config("categories")
             self.initialized = True

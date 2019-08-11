@@ -1,6 +1,5 @@
 """FileContentProvider.py"""
 
-from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class FileContentProvider(ContentProvider):
