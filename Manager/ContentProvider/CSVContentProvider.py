@@ -10,7 +10,7 @@ from Movie.MoviesFactory import MoviesFactory
 class CSVContentProvider(ContentProvider):
     """Content Provider para archivos en formato CSV (en verdad, .tab)"""
     def __init__(self, filenames: List[str]):
-        """Constructor, recibe una lista con el nombre del archivo de peliculas y el de categorias"""
+        """Constructor"""
 
         super(CSVContentProvider, self).__init__()
         self.name = "Archivo CSV"
