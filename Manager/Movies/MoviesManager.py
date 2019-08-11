@@ -33,7 +33,6 @@ class MoviesManager(ItemsManager):
         """Crea una pelicula con los datos dados"""
         return MoviesFactory.create1(self.get_next_identifier(), title, description, releasedate, director, category)
 
-    # TODO: Usualmente se retorna el elemento eliminado
     def remove(self, identifier: int):
         """Borra la pelicula con el identificador dado del Manager"""
         self.items = list(filter(lambda x : x.identifier != identifier, self.items))
