@@ -19,7 +19,7 @@ class TkinterEditor(object):
     LISTBOX_ITEM_FORMAT = "{:<" + str(IDENTIFIER_SIZE) + "}  {:>}" # Formato a usar para mostrar las peliculas
     APPLICATION_TITLE = "ABMC Peliculas"
     WINDOW_WIDTH = 550
-    WINDOW_HEIGHT = 350
+    WINDOW_HEIGHT = 370
     EXIT_MENU = "Salir"
     SETTINGS_MENU = "Ajustes"
     SYSTEM_MENU = "Sistema"
@@ -27,7 +27,7 @@ class TkinterEditor(object):
     IDENTIFIER_LABEL = "Identificador"
     TITLE_LABEL = "Titulo"
     DESCRIPTION_LABEL = "Description"
-    RELEASE_DATE_LABEL = "Fecha de estreno"
+    RELEASE_DATE_LABEL = "Fecha de estreno\n(YYYY-MM-DD)"
     DIRECTOR_LABEL = "Director"
     CATEGORY_LABEL = "Categoria"
     ADD_BUTTON_CAPTION = "Agregar"
