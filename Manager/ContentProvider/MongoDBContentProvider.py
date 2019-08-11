@@ -49,8 +49,8 @@ class MongoDBContentProvider(ContentProvider):
             database.movies.delete_many({}) # TODO: Armar una lista de elementos borrados para no borrar toda la base
 
             for movie in self.movies:
-                if database.movies.find_one_and_update({'identifier': movie.identifier}, {'$set': movie.toDictionary()}) is None:
-                    database.movies.insert(movie.toDictionary())
+                if database.movies.find_one_and_update({'identifier': movie.identifier}, {'$set': movie.to_dictionary()}) is None:
+                    database.movies.insert(movie.to_dictionary())
 
             # Las categorias nunca se borran
             for category in self.categories:
