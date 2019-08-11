@@ -3,8 +3,6 @@
 import ZODB
 import ZODB.FileStorage
 import transaction
-import Movie.Movie
-from typing import List, Any
 from Manager.ContentProvider.ContentProvider import ContentProvider
 
 class ZODBContentProvider(ContentProvider):
