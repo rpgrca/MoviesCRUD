@@ -40,7 +40,7 @@ class MoviesManager(ItemsManager):
     def get_movie(self, identifier: int) -> Movie:
         """Retorna la pelicula cuyo identificador es igual al indicado"""
         result = list(filter(lambda x: x.identifier == identifier, self.items))
-        if result and len(result) > 0:
+        if result:
             return result[0]
 
         return None
