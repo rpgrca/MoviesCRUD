@@ -33,7 +33,7 @@ class SQLiteContentProvider(ContentProvider):
         """Carga las categorias y las peliculas de la base de datos de SQLite"""
 
         if not self.__connection and not self.initialized:
-            self.categories = {}
+            self.categories = []
             self.__connection = sqlite3.connect(self.__filename)
             self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
             self.__connection.execute('CREATE TABLE IF NOT EXISTS Movies (id INTEGER PRIMARY KEY, identifier INTEGER, title varchar(100) NOT NULL, description varchar(1024) NOT NULL, releasedate TEXT NOT NULL, director varchar(100) NOT NULL, category INTEGER NOT NULL, FOREIGN KEY(category) REFERENCES categories(id))')
