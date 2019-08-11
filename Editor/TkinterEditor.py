@@ -1,5 +1,6 @@
 """TkinterEditor.py"""
 
+import datetime
 from tkinter import *
 from tkinter import ttk, messagebox
 from Editor.SettingsEditor import SettingsEditor
@@ -13,6 +14,7 @@ class TkinterEditor(object):
     """Ventana principal de la aplicacion"""
     LABEL_OK_COLOR = "black"
     LABEL_ERROR_COLOR = "red"
+    DATE_FORMAT = '%Y-%m-%d'
     IDENTIFIER_SIZE = 5 # Cantidad de espacios entre el id y el nombre de la pelicula
     LISTBOX_ITEM_FORMAT = "{:<" + str(IDENTIFIER_SIZE) + "}  {:>}" # Formato a usar para mostrar las peliculas
     APPLICATION_TITLE = "ABMC Peliculas"
@@ -156,7 +158,7 @@ class TkinterEditor(object):
             can_save = True
             can_save = self.__verify_text(self.__title_label, self.__title) and can_save
             can_save = self.__verify_text(self.__description_label, self.__description) and can_save
-            can_save = self.__verify_text(self.__releasedate_label, self.__releasedate) and can_save
+            can_save = self.__verify_date(self.__releasedate_label, self.__releasedate) and can_save
             can_save = self.__verify_text(self.__director_label, self.__director) and can_save
             can_save = self.__verify_text(self.__category_label, self.__category) and can_save
 
@@ -209,6 +211,19 @@ class TkinterEditor(object):
             label['fg'] = TkinterEditor.LABEL_OK_COLOR
             can_save = True
         else:
+            label['fg'] = TkinterEditor.LABEL_ERROR_COLOR
+
+        return can_save
+
+    def __verify_date(self, label: Label, textbox: Entry) -> bool:
+        """Cambia el color del Label si la fecha de estreno es incorrecta retornando False"""
+        can_save = False
+
+        try:
+            datetime.datetime.strptime(textbox.get(), TkinterEditor.DATE_FORMAT)
+            label['fg'] = TkinterEditor.LABEL_OK_COLOR
+            can_save = True
+        except ValueError:
             label['fg'] = TkinterEditor.LABEL_ERROR_COLOR
 
         return can_save
