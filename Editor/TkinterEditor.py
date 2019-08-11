@@ -53,10 +53,13 @@ class TkinterEditor(object):
         self.__load_content_providers()
         self.clear_editor()
 
-    def __switch_content_provider(self, content_provider: str):
+    def __switch_content_provider(self, content_provider: str, save: bool):
         """Cambia el content provider a otro"""
         # TODO: Si falla cambiar la conexion, al volver ya esta cerrada la vieja
-        self.__general_manager.save()
+        if save:
+            self.__general_manager.dump()
+            self.__general_manager.save()
+
         self.__general_manager.select_content_provider(content_provider)
         self.__general_manager.load()
         self.__reload_movies()
@@ -110,11 +113,12 @@ class TkinterEditor(object):
             old_connection = self.__previous_content_provider
 
             try:
-                self.__switch_content_provider(new_connection)
+                self.__switch_content_provider(new_connection, True)
                 self.__previous_content_provider = new_connection
             except Exception as err:
                 messagebox.showerror(title="Error", message=err)
-                self.__general_manager.select_content_provider(old_connection)
+                #self.__general_manager.select_content_provider(old_connection)
+                self.__switch_content_provider(old_connection, False)
                 self.__previous_content_provider = old_connection
                 self.__selected_content_provider.set(self.__previous_content_provider)
         else:
