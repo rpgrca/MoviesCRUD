@@ -21,3 +21,5 @@ Menú Ajustes:
 Las categorías se graban al grabar la película. NO SE PUEDEN BORRAR UNA VEZ CREADAS.
 
 Si cambiar a una nueva conexión no es posible, se revierte a la anterior.
+
+Es posible editar películas seleccionándolas y utilizando el menú contextual.
