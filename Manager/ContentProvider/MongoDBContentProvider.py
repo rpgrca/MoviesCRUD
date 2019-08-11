@@ -31,11 +31,11 @@ class MongoDBContentProvider(ContentProvider):
         if not self.initialized:
             self.__client = MongoClient(self.__connection_string, serverSelectionTimeoutMS=5000)
             if self.__client:
-                db = self.__client['MoviesCRUD']
-                for movie in db.movies.find():
+                database = self.__client['MoviesCRUD']
+                for movie in database.movies.find():
                     self.movies.append(MoviesFactory.create1(movie['identifier'], movie['title'], movie['description'], movie['releasedate'], movie['director'], movie['category']))
 
-                for category in db.categories.find():
+                for category in database.categories.find():
                     self.categories.append(category['category'])
 
                 self.initialized = True
@@ -45,18 +45,18 @@ class MongoDBContentProvider(ContentProvider):
     def save(self):
         """Graba las listas de peliculas y categorias en la base de datos de MongoDB"""
         if self.initialized:
-            db = self.__client['MoviesCRUD']
-            db.movies.delete_many({}) # TODO: Armar una lista de elementos borrados para no borrar toda la base
+            database = self.__client['MoviesCRUD']
+            database.movies.delete_many({}) # TODO: Armar una lista de elementos borrados para no borrar toda la base
 
             for movie in self.movies:
-                if db.movies.find_one_and_update({'identifier': movie.identifier}, {'$set': movie.toDictionary()}) is None:
-                    db.movies.insert(movie.toDictionary())
+                if database.movies.find_one_and_update({'identifier': movie.identifier}, {'$set': movie.toDictionary()}) is None:
+                    database.movies.insert(movie.toDictionary())
 
             # Las categorias nunca se borran
             for category in self.categories:
-                result = db.categories.find_one({'category': category})
+                result = database.categories.find_one({'category': category})
                 if result is None:
-                    db.categories.insert({'category': category})
+                    database.categories.insert({'category': category})
 
             self.__client = None
 
