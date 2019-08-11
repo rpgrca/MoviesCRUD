@@ -36,7 +36,7 @@ class MySQLContentProvider(ContentProvider):
         if not self.__connection and not self.initialized:
             self.categories = []
             try:
-                self.__connection = mysql.connector.connect(user=self.__user, password=self.__password, host=self.__host, database=self.__database)
+                self.__connection = mysql.connector.connect(user=self.__user, password=self.__password, host=self.__host, database=self.__database, connection_timeout=5)
             except Error as err:
                 if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                     raise ValueError("Error en el usuario o password")
