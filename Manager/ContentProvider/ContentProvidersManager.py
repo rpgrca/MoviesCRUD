@@ -23,7 +23,6 @@ class ContentProvidersManager(ItemsManager):
             return result
 
     def load(self):
-        # TODO: Podria ser a pedido para optimizar la creacion
         """Carga cada uno de los content providers disponibles"""
         content_providers = []
         for provider in ContentProviderFactory.get_providers():
