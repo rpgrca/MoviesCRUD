@@ -428,5 +428,5 @@ class TkinterEditor(object):
         self.__movies_listbox_menu = Menu(self.__movies_listbox, tearoff=False)
         self.__movies_listbox_menu.add_command(label=TkinterEditor.EDIT_CONTEXT_MENU, command=self.__on_edit_movie)
         self.__movies_listbox_menu.add_command(label=TkinterEditor.DELETE_CONTEXT_MENU, command=self.__on_remove_movie)
-        self.__movies_listbox_menu.add_command(label=TkinterEditor.SELECT_ALL_CONTEXT_MENU, command=self.__on_not_implemented)
+        #self.__movies_listbox_menu.add_command(label=TkinterEditor.SELECT_ALL_CONTEXT_MENU, command=self.__on_not_implemented)
         self.__movies_listbox_menu.bind("<FocusOut>", lambda *args: self.__movies_listbox_menu.unpost())
