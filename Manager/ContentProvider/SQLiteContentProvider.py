@@ -1,6 +1,5 @@
 """SQLiteContentProvider.py"""
 
-from typing import List, Any
 import sqlite3
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.MoviesFactory import MoviesFactory
@@ -34,14 +33,14 @@ class SQLiteContentProvider(ContentProvider):
         """Carga las categorias y las peliculas de la base de datos de SQLite"""
 
         if not self.__connection and not self.initialized:
-            categories = {}
+            self.categories = {}
             self.__connection = sqlite3.connect(self.__filename)
             self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
             self.__connection.execute('CREATE TABLE IF NOT EXISTS Movies (id INTEGER PRIMARY KEY, identifier INTEGER, title varchar(100) NOT NULL, description varchar(1024) NOT NULL, releasedate TEXT NOT NULL, director varchar(100) NOT NULL, category INTEGER NOT NULL, FOREIGN KEY(category) REFERENCES categories(id))')
             self.__connection.commit()
 
             cursor = self.__connection.cursor()
-            for (id, name) in cursor.execute('SELECT id, name FROM Categories'):
+            for (_id, name) in cursor.execute('SELECT id, name FROM Categories'):
                 self.categories.append(name)
 
             cursor.close()

@@ -1,6 +1,6 @@
 """MySQLContentProvider.py"""
 
-from typing import List, Any
+from typing import List
 import mysql.connector #  pip3 install mysql-connector
 from mysql.connector import Error, errorcode
 from Manager.ContentProvider.ContentProvider import ContentProvider
@@ -34,7 +34,7 @@ class MySQLContentProvider(ContentProvider):
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de MySQL"""
         if not self.__connection and not self.initialized:
-            categories = {}
+            self.categories = {}
             try:
                 self.__connection = mysql.connector.connect(user=self.__user, password=self.__password, host=self.__host, database=self.__database)
             except Error as err:
@@ -55,7 +55,7 @@ class MySQLContentProvider(ContentProvider):
 
             cursor = self.__connection.cursor()
             cursor.execute('SELECT id, name FROM Categories')
-            for (id, name) in cursor:
+            for (_id, name) in cursor:
                 self.categories.append(name)
 
             cursor.close()
