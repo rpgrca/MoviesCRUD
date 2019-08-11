@@ -34,17 +34,18 @@ class CSVContentProvider(ContentProvider):
         if not self.initialized and self.__movies_filename and self.__categories_filename:
             if os.path.isfile(self.__categories_filename):
                 with open(self.__categories_filename, "r") as input_file:
-                    reader = csv.reader(input_file, delimiter=self.__delimiter)
-                    for line in reader:
-                        try:
+                    try:
+                        reader = csv.reader(input_file, delimiter=self.__delimiter)
+                        for line in reader:
                             if line:
                                 identifier, category = line
                                 if identifier and identifier != 'id':
                                     self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header, no procesarlo
-                        except Exception as exception:
-                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__categories_filename, reader.line_num, exception))
+
+                    except Exception as exception:
+                        raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__categories_filename, reader.line_num, exception))
 
             if os.path.isfile(self.__movies_filename):
                 with open(self.__movies_filename, "r") as input_file:
