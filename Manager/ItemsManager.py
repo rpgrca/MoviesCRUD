@@ -16,7 +16,6 @@ class ItemsManager(object):
 
     def __get_items(self) -> List[Any]:
         """Retorna los items cargados en el Manager"""
-        # TODO: Tal vez deberia llamar a self.load()
         return self.__items
 
     def __set_items(self, items: List[Any]):
