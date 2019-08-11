@@ -43,9 +43,8 @@ class CSVContentProvider(ContentProvider):
                                     self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header, no procesarlo
-                        except:
-                            # TODO: Agregar numero de linea
-                            raise ValueError("Formato invalido en archivo {}".format(self.__categories_filename))
+                        except Exception as e:
+                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__categories_filename, reader.line_num, e))
 
             if os.path.isfile(self.__movies_filename):
                 with open(self.__movies_filename, "r") as input_file:
@@ -62,9 +61,8 @@ class CSVContentProvider(ContentProvider):
                                         self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header, no procesarlo
-                        except:
-                            # TODO: Agregar numero de linea
-                            raise ValueError("Formato invalido en archivo CSV")
+                        except Exception as e:
+                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__movies_filename, reader.line_num, e))
 
             self.initialized = True
 
