@@ -1,11 +1,8 @@
 """MongoDBContentProvider.py"""
 
-from typing import List, Any
-import pymongo # pip3 install pymongo
-from pymongo import MongoClient
+from pymongo import MongoClient # pip3 install pymongo
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.MoviesFactory import MoviesFactory
-from Movie.Movie import Movie
 
 class MongoDBContentProvider(ContentProvider):
     """Manejador de una base de datos MongoDB"""

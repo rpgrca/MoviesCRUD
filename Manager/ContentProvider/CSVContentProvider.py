@@ -1,6 +1,6 @@
 """FileContentProvider.py"""
 
-from typing import List, Any
+from typing import List
 import csv
 import os
 from Manager.ContentProvider.ContentProvider import ContentProvider
@@ -14,7 +14,7 @@ class CSVContentProvider(ContentProvider):
 
         super(CSVContentProvider, self).__init__()
         self.name = "Archivo CSV"
-        self.extra_data = [ "movies.csv", "categories.csv" ]
+        self.extra_data = ["movies.csv", "categories.csv"]
         self.key = CSVContentProvider.KEY()
         self.__delimiter = '\t'
         self.refresh(filenames)
@@ -43,8 +43,8 @@ class CSVContentProvider(ContentProvider):
                                     self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header, no procesarlo
-                        except Exception as e:
-                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__categories_filename, reader.line_num, e))
+                        except Exception as exception:
+                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__categories_filename, reader.line_num, exception))
 
             if os.path.isfile(self.__movies_filename):
                 with open(self.__movies_filename, "r") as input_file:
@@ -61,18 +61,18 @@ class CSVContentProvider(ContentProvider):
                                         self.categories.append(category)
                                 else:
                                     pass # El archivo csv tiene header, no procesarlo
-                        except Exception as e:
-                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__movies_filename, reader.line_num, e))
+                        except Exception as exception:
+                            raise ValueError("Formato invalido en archivo {}, linea {}: {}".format(self.__movies_filename, reader.line_num, exception))
 
             self.initialized = True
 
     def save(self):
         """Graba los valores en los archivos CSV"""
         if self.__categories_filename and self.__movies_filename and self.initialized:
-            categories = [ {'id': i + 1, 'category': x} for i, x in enumerate(self.categories)]
+            categories = [{'id': i + 1, 'category': x} for i, x in enumerate(self.categories)]
 
             with open(self.__categories_filename, 'w', newline='') as output_file:
-                writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=[ 'id', 'category' ])
+                writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=['id', 'category'])
                 writer.writeheader()
                 writer.writerows(categories)
 

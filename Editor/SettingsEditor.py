@@ -33,7 +33,7 @@ class SettingsEditor(object):
                     extra_datas = content_provider.extra_data
 
                 state = 'readonly' if content_provider.key == current_content_provider.key else 'normal'
-                self.__variables[content_provider.key] = { 'variable': [], 'label': label }
+                self.__variables[content_provider.key] = {'variable': [], 'label': label}
                 for extra_data in extra_datas:
                     variable = StringVar()
                     variable.set(extra_data)
@@ -74,7 +74,7 @@ class SettingsEditor(object):
                         if content_provider.extra_data != new_extra_data:
                             content_provider.refresh(new_extra_data)
                     else:
-                        new_extra_data = list(map(lambda x : x.get(), self.__variables[content_provider.key]['variable']))
+                        new_extra_data = list(map(lambda x: x.get(), self.__variables[content_provider.key]['variable']))
                         if content_provider.extra_data != new_extra_data:
                             content_provider.refresh(new_extra_data)
 
@@ -85,7 +85,7 @@ class SettingsEditor(object):
         # TODO: Si hay cambios deberia preguntar si desea perderlos
         self.parent_window.destroy()
 
-    def __init__(self, parent: Tk = None, **configs):
+    def __init__(self, parent: Tk = None, **_configs):
         """Constructor"""
         self.__content_providers_manager = None
         self.__variables = {}
