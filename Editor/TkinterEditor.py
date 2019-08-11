@@ -97,7 +97,6 @@ class TkinterEditor(object):
                     self.edit_movie(movie)
     
     def __on_movies_listbox_right_click(self, event):
-        # TODO: El menu contextual puede quedarse colgado de vez en cuando
         """Callback llamada cuando se hace click con el boton derecho sobre la lista"""
         try:
             self.__movies_listbox_menu.tk_popup(event.x_root, event.y_root)
