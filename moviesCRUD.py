@@ -5,15 +5,15 @@ from Editor.TkinterEditor import TkinterEditor
 from Manager.GeneralManager import GeneralManager
 
 if __name__ == '__main__':
-    root = Tk()
-    editor = TkinterEditor(root)
+    ROOT = Tk()
+    EDITOR = TkinterEditor(ROOT)
 
-    manager = GeneralManager()
-    manager.select_content_provider("memory")
-    manager.load()
+    MANAGER = GeneralManager()
+    MANAGER.select_content_provider('memory')
+    MANAGER.load()
 
-    editor.set_general_manager(manager)
-    root.mainloop()
+    EDITOR.set_general_manager(MANAGER)
+    ROOT.mainloop()
 
-    manager.dump()
-    manager.save()
+    MANAGER.dump()
+    MANAGER.save()

@@ -42,7 +42,7 @@ class JSONContentProvider(ContentProvider):
         """Graba las listas de peliculas y categorias en un archivo JSON"""
         if self.initialized:
             dictionary = {}
-            dictionary["movies"] = [x.toDictionary() for x in self.movies] # Esto sirve solo para clases simples como las mias
+            dictionary["movies"] = [x.to_dictionary() for x in self.movies] # Esto sirve solo para clases simples como las mias
             dictionary["categories"] = self.categories
             self.__save_json(self.__filename, dictionary)
 

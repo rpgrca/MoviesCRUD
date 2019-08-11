@@ -81,7 +81,7 @@ class CSVContentProvider(ContentProvider):
                 writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=Movie.getHeaders())
                 writer.writeheader()
                 for movie in self.movies:
-                    writer.writerow(movie.toDictionary())
+                    writer.writerow(movie.to_dictionary())
 
             self.initialized = False
             self.movies = []
