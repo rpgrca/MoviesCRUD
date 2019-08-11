@@ -34,23 +34,27 @@ class SQLiteContentProvider(ContentProvider):
 
         if not self.__connection and not self.initialized:
             self.categories = []
-            self.__connection = sqlite3.connect(self.__filename)
-            self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
-            self.__connection.execute('CREATE TABLE IF NOT EXISTS Movies (id INTEGER PRIMARY KEY, identifier INTEGER, title varchar(100) NOT NULL, description varchar(1024) NOT NULL, releasedate TEXT NOT NULL, director varchar(100) NOT NULL, category INTEGER NOT NULL, FOREIGN KEY(category) REFERENCES categories(id))')
-            self.__connection.commit()
 
-            cursor = self.__connection.cursor()
-            for (_id, name) in cursor.execute('SELECT id, name FROM Categories'):
-                self.categories.append(name)
+            try:
+                self.__connection = sqlite3.connect(self.__filename)
+                self.__connection.execute('CREATE TABLE IF NOT EXISTS Categories (id INTEGER PRIMARY KEY, name varchar(100) NOT NULL)')
+                self.__connection.execute('CREATE TABLE IF NOT EXISTS Movies (id INTEGER PRIMARY KEY, identifier INTEGER, title varchar(100) NOT NULL, description varchar(1024) NOT NULL, releasedate TEXT NOT NULL, director varchar(100) NOT NULL, category INTEGER NOT NULL, FOREIGN KEY(category) REFERENCES categories(id))')
+                self.__connection.commit()
 
-            cursor.close()
+                cursor = self.__connection.cursor()
+                for (_id, name) in cursor.execute('SELECT id, name FROM Categories'):
+                    self.categories.append(name)
 
-            cursor = self.__connection.cursor()
-            for row in cursor.execute('SELECT identifier, title, description, releasedate, director, Categories.name FROM Movies, Categories WHERE Movies.category = Categories.id'):
-                self.movies.append(MoviesFactory.create1(int(row[0]), row[1], row[2], row[3], row[4], row[5]))
+                cursor.close()
 
-            cursor.close()
-            self.initialized = True
+                cursor = self.__connection.cursor()
+                for row in cursor.execute('SELECT identifier, title, description, releasedate, director, Categories.name FROM Movies, Categories WHERE Movies.category = Categories.id'):
+                    self.movies.append(MoviesFactory.create1(int(row[0]), row[1], row[2], row[3], row[4], row[5]))
+
+                cursor.close()
+                self.initialized = True
+            except Exception as exception:
+                raise ValueError("Hubo un problema leyendo la base de datos: {}".format(exception))
 
     def save(self):
         """Graba las listas de peliculas y categorias en una base de datos de SQLite"""

@@ -29,14 +29,18 @@ class JSONContentProvider(ContentProvider):
     def load(self):
         """Carga las listas de peliculas y categorias desde un archivo JSON"""
         if not self.initialized:
-            respjson = self.__load_json(self.__filename)
-            if respjson is not None:
-                if respjson.get("movies"):
-                    self.movies = [MoviesFactory.create(x) for x in respjson["movies"]]
+            try:
+                respjson = self.__load_json(self.__filename)
+                if respjson is not None:
+                    if respjson.get("movies"):
+                        self.movies = [MoviesFactory.create(x) for x in respjson["movies"]]
 
-                if respjson.get("categories"):
-                    self.categories = respjson["categories"]
-            self.initialized = True
+                    if respjson.get("categories"):
+                        self.categories = respjson["categories"]
+                self.initialized = True
+
+            except Exception as exception:
+                raise ValueError("Hubo un problema leyendo del archivo {}: {}".format(self.__filename, exception))
 
     def save(self):
         """Graba las listas de peliculas y categorias en un archivo JSON"""
@@ -57,8 +61,8 @@ class JSONContentProvider(ContentProvider):
             if os.path.isfile(filename):
                 with open(filename, 'r') as inputfile:
                     filejson = json.load(inputfile)
-        except Exception as ex:
-            print(ex)
+        except Exception as exception:
+            raise ValueError("Hubo un problema leyendo el archivo {}: {}".format(filename, exception))
 
         return filejson
 

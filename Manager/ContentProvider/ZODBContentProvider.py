@@ -31,16 +31,20 @@ class ZODBContentProvider(ContentProvider):
     def load(self):
         """Carga las categorias y las peliculas de la base de datos de ZODB"""
         if not self.initialized:
-            self.__database = ZODB.DB(self.__filename)
-            self.__connection = self.__database.open()
+            try:
+                self.__database = ZODB.DB(self.__filename)
+                self.__connection = self.__database.open()
 
-            root = self.__connection.root()
-            if root and hasattr(root, 'keys'):
-                for key in sorted(root.keys()):
-                    if key.startswith('movies'):
-                        self.movies.append(root[key])
-                    elif key == 'categories':
-                        self.categories = root[key]
+                root = self.__connection.root()
+                if root and hasattr(root, 'keys'):
+                    for key in sorted(root.keys()):
+                        if key.startswith('movies'):
+                            self.movies.append(root[key])
+                        elif key == 'categories':
+                            self.categories = root[key]
+
+            except Exception as exception:
+                raise ValueError("Hubo un problema leyendo la base de datos: {}".format(exception))
 
             self.initialized = True
 
