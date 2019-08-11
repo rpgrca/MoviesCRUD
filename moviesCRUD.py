@@ -1,4 +1,4 @@
-"""peliculasGUI.py"""
+"""moviesCRUD.py"""
 
 from tkinter import Tk
 from Editor.TkinterEditor import TkinterEditor
