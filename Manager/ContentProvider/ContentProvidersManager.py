@@ -1,6 +1,6 @@
 """ContentProvidersManager.py"""
 
-from typing import List, Any
+from typing import List
 from Manager.ItemsManager import ItemsManager
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Manager.ContentProvider.ContentProviderFactory import ContentProviderFactory
