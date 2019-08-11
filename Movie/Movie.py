@@ -7,8 +7,15 @@ class Movie(persistent.Persistent):
 
     def __init__(self, identifier: int = -1, title: str = "", description: str = "", releasedate: str = "", director: str = "", category: str = "", **kwargs):
         """Constructor"""
+        self.__identifier = None
+        self.__title = None
+        self.__description = None
+        self.__releasedate = None
+        self.__director = None
+        self.__category = None
+
         # El diccionario tiene maxima prioridad
-        if kwargs and kwargs["dictionary"]:
+        if kwargs and kwargs['dictionary']:
             self.identifier = kwargs['dictionary']['identifier']
             self.title = kwargs['dictionary']['title']
             self.description = kwargs['dictionary']['description']
@@ -24,7 +31,7 @@ class Movie(persistent.Persistent):
             self.category = category
 
     @staticmethod
-    def getHeaders():
+    def get_headers():
         """Retorna cada uno de los campos de esta clase"""
         return ['identifier', 'title', 'description', 'releasedate', 'director', 'category']
 
@@ -101,15 +108,15 @@ class Movie(persistent.Persistent):
     director = property(__get_director, __set_director)
     category = property(__get_category, __set_category)
 
-    def fromDictionary(self, dictionary: dict):
+    def from_dictionary(self, dictionary: dict):
         """Carga los valores del diccionario dado en la estructura interna"""
         self.__dict__ = dictionary
 
-    def toDictionary(self) -> dict:
+    def to_dictionary(self) -> dict:
         """Retorna el diccionario interno para serializar como JSON"""
         #return { 'identifier': self.identifier, 'title': self.title, 'description': self.description, 'releasedate': self.releasedate, 'director': self.director, 'category': self.category }
         #return self.__dict__
-        return dict(zip(Movie.getHeaders(), [self.identifier, self.title, self.description, self.releasedate, self.director, self.category]))
+        return dict(zip(Movie.get_headers(), [self.identifier, self.title, self.description, self.releasedate, self.director, self.category]))
 
     def __str__(self) -> str:
         """String"""

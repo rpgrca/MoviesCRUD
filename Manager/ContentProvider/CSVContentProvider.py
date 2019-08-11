@@ -78,7 +78,7 @@ class CSVContentProvider(ContentProvider):
                 writer.writerows(categories)
 
             with open(self.__movies_filename, "w", newline='') as output_file:
-                writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=Movie.getHeaders())
+                writer = csv.DictWriter(output_file, delimiter=self.__delimiter, fieldnames=Movie.get_headers())
                 writer.writeheader()
                 for movie in self.movies:
                     writer.writerow(movie.to_dictionary())
