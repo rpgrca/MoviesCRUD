@@ -4,6 +4,7 @@ from typing import List
 from Manager.ItemsManager import ItemsManager
 from Manager.ContentProvider.ContentProvider import ContentProvider
 from Movie.Movie import Movie
+from Movie.MoviesFactory import MoviesFactory
 
 class MoviesManager(ItemsManager):
     """Manejador de peliculas, mantiene la lista de peliculas actualmente visualizadas por el formulario"""
@@ -28,10 +29,9 @@ class MoviesManager(ItemsManager):
         """Retorna la lista actual de peliculas del Manager"""
         return super(MoviesManager, self).items
 
-    # TODO: Ya existe esta funcion en MoviesFactory, consolidar
     def create(self, title: str, description: str, releasedate: str, director: str, category: str) -> Movie:
         """Crea una pelicula con los datos dados"""
-        return Movie(self.get_next_identifier(), title, description, releasedate, director, category)
+        return MoviesFactory.create1(self.get_next_identifier(), title, description, releasedate, director, category)
 
     # TODO: Usualmente se retorna el elemento eliminado
     def remove(self, identifier: int):
