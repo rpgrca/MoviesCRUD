@@ -1,0 +1,14 @@
+BTrees==4.11.3
+cffi==1.15.1
+dnspython==2.2.1
+mysql-connector==2.2.9
+persistent==4.9.3
+pycparser==2.21
+pymongo==4.3.3
+six==1.16.0
+transaction==3.0.1
+zc.lockfile==2.0
+ZConfig==3.6.1
+ZODB==5.8.0
+zodbpickle==2.6
+zope.interface==5.5.2
