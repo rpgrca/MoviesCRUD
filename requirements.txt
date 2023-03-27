@@ -10,5 +10,5 @@ transaction==3.0.1
 zc.lockfile==3.0.post1
 ZConfig==3.6.1
 ZODB==5.8.0
-zodbpickle==2.6
+zodbpickle==3.0
 zope.interface==5.5.2
