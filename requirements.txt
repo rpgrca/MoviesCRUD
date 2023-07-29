@@ -1,6 +1,6 @@
 BTrees==5.0
 cffi==1.15.1
-dnspython==2.4.0
+dnspython==2.4.1
 mysql-connector==2.2.9
 persistent==5.0
 pycparser==2.21
