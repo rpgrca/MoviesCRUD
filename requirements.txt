@@ -2,7 +2,7 @@ BTrees==5.2
 cffi==1.16.0
 dnspython==2.5.0
 mysql-connector==2.2.9
-persistent==5.1
+persistent==5.2
 pycparser==2.21
 pymongo==4.6.1
 six==1.16.0
