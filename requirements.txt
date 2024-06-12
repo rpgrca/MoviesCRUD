@@ -1,4 +1,4 @@
-BTrees==5.2
+BTrees==6.0
 cffi==1.16.0
 dnspython==2.6.1
 mysql-connector==2.2.9
@@ -11,4 +11,4 @@ zc.lockfile==3.0.post1
 ZConfig==4.1
 ZODB==6.0
 zodbpickle==4.0
-zope.interface==6.4
+zope.interface==6.4.post2
