@@ -1,5 +1,5 @@
 BTrees==6.0
-cffi==1.16.0
+cffi==1.17.0
 dnspython==2.6.1
 mysql-connector==2.2.9
 persistent==6.0
