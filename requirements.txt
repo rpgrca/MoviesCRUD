@@ -6,7 +6,7 @@ persistent==6.0
 pycparser==2.22
 pymongo==4.8.0
 six==1.16.0
-transaction==4.0
+transaction==5.0
 zc.lockfile==3.0.post1
 ZConfig==4.1
 ZODB==6.0
