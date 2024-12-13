@@ -5,7 +5,7 @@ mysql-connector==2.2.9
 persistent==6.1
 pycparser==2.22
 pymongo==4.10.1
-six==1.16.0
+six==1.17.0
 transaction==5.0
 zc.lockfile==3.0.post1
 ZConfig==4.1
