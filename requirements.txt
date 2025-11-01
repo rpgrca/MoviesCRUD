@@ -1,4 +1,4 @@
-BTrees==6.1
+BTrees==6.2
 cffi==2.0.0
 dnspython==2.7.0
 mysql-connector==2.2.9
