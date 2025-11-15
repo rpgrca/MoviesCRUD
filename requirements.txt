@@ -11,4 +11,4 @@ zc.lockfile==4.0
 ZConfig==4.2
 ZODB==6.1
 zodbpickle==4.2
-zope.interface==8.0.1
+zope.interface==8.1.1
