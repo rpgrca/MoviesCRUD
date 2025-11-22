@@ -8,7 +8,7 @@ pymongo==4.15.4
 six==1.17.0
 transaction==5.0
 zc.lockfile==4.0
-ZConfig==4.2
+ZConfig==4.3
 ZODB==6.1
 zodbpickle==4.2
 zope.interface==8.1.1
