@@ -9,6 +9,6 @@ six==1.17.0
 transaction==5.0
 zc.lockfile==4.0
 ZConfig==4.3
-ZODB==6.1
+ZODB==6.2
 zodbpickle==4.3
 zope.interface==8.1.1
