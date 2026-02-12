@@ -3,7 +3,7 @@ cffi==2.0.0
 dnspython==2.8.0
 mysql-connector==2.2.9
 persistent==6.5
-pycparser==2.23
+pycparser==3.0
 pymongo==4.16.0
 six==1.17.0
 transaction==5.0
