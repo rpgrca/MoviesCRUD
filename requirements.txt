@@ -4,7 +4,7 @@ dnspython==2.8.0
 mysql-connector==2.2.9
 persistent==6.5
 pycparser==2.23
-pymongo==4.15.5
+pymongo==4.16.0
 six==1.17.0
 transaction==5.0
 zc.lockfile==4.0
